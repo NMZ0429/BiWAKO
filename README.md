@@ -15,3 +15,28 @@
 </div>
 
 # BiWAKO
+
+## Usage
+
+No matter which model you use, these interface is the same.
+
+```python
+import BiWAKO
+
+# 1. Initialize Model
+model = BiWAKO.MiDASInference(model_type="small")
+
+# 2. Feed Image (accept cv2 image or path to the image)
+prediction = model.predict(image_or_image_path)
+
+# 3. Show result as a cv2 image
+result_img = model.predict(prediction, image_or_image_path)
+```
+
+## Models
+
+|Task| Model| Weights|
+|:----|:----|:----|
+|Mono Depth Prediction| MiDAS| Large-Small|
+|Salient Object Detection| U2Net| Basic-Mobile-Human|
+|Super Resolution| RealESRGAN| Large-Small|
