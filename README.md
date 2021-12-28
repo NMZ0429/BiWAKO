@@ -41,3 +41,4 @@ result_img = model.render(prediction, image_or_image_path)
 |Salient Object Detection| U2Net| Basic-Mobile-Human|
 |Super Resolution| RealESRGAN| Large-Small|
 |Object Detection| YOLOv5| nano-s-large-extreme|
+|Emotion Prediction| FerPlus|ferplus8|
