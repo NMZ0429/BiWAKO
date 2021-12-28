@@ -38,7 +38,7 @@ class YOLO(BaseInference):
 
         clf = self.non_max_suppression(pred)
         clf = clf[0]  # batch processing is not currently supported
-        clf[:, :4] = self.scale_coords(self.input_shape, clf[:, :4], orig_size).round()
+        clf[:, :4] = self._scale_coords(self.input_shape, clf[:, :4], orig_size).round()
 
         return clf.numpy()
 
@@ -48,9 +48,6 @@ class YOLO(BaseInference):
         rtn = cv2.cvtColor(rtn, cv2.COLOR_BGR2RGB)
 
         lw = max(round(sum(rtn.shape) / 2 * 0.003), 2)
-        """prediction[:, :4] = self.scale_coords(
-            self.input_shape, prediction[:, :4], rtn.shape
-        ).round()"""
         for pred in prediction:
             x1, y1, x2, y2 = pred[:4]
             cv2.rectangle(
@@ -226,51 +223,6 @@ class YOLO(BaseInference):
             area1[:, None] + area2 - inter
         )  # iou = inter / (area1 + area2 - inter)
 
-    def _padded_resize(
-        self,
-        img: np.ndarray,
-        new_shape: Tuple[int, int] = (640, 640),
-        color: Tuple[int, int, int] = (114, 114, 114),
-        auto: bool = True,
-        scaleFill: bool = False,
-        scaleup: bool = True,
-        stride: int = 32,
-    ) -> np.ndarray:
-        # Resize and pad image while meeting stride-multiple constraints
-        h, w = img.shape[:2]
-        new_h, new_w = new_shape
-
-        # Scale ratio (new / old)
-        r = min(new_h / h, new_w / w)
-        if not scaleup:  # only scale down, do not scale up (for better val mAP)
-            r = min(r, 1.0)
-
-        # Compute padding
-        ratio = r, r  # width, height ratios
-        new_unpad = int(round(h * r)), int(round(w * r))
-        dw, dh = new_w - new_unpad[0], new_h - new_unpad[1]  # wh padding
-        if auto:  # minimum rectangle
-            dw, dh = np.mod(dw, stride), np.mod(dh, stride)  # wh padding
-        elif scaleFill:  # stretch
-            dw, dh = 0.0, 0.0
-            new_unpad = (new_w, new_h)
-            ratio = (
-                new_w / w,
-                new_h / h,
-            )  # width, height ratios
-
-        dw /= 2  # divide padding into 2 sides
-        dh /= 2
-
-        if (w, h) != new_unpad:  # resize
-            padded_img = cv2.resize(img, new_unpad, interpolation=cv2.INTER_LINEAR)
-        top, bottom = int(round(dh - 0.1)), int(round(dh + 0.1))
-        left, right = int(round(dw - 0.1)), int(round(dw + 0.1))
-        padded_img = cv2.copyMakeBorder(
-            img, top, bottom, left, right, cv2.BORDER_CONSTANT, value=color
-        )  # add border
-        return padded_img
-
     def letterbox(
         self,
         im,
@@ -317,7 +269,7 @@ class YOLO(BaseInference):
         )  # add border
         return im, ratio, (dw, dh)
 
-    def scale_coords(self, img1_shape, coords, img0_shape, ratio_pad=None):
+    def _scale_coords(self, img1_shape, coords, img0_shape, ratio_pad=None):
         # Rescale coords (xyxy) from img1_shape to img0_shape
         if ratio_pad is None:  # calculate from img0_shape
             gain = min(
@@ -334,10 +286,10 @@ class YOLO(BaseInference):
         coords[:, [0, 2]] -= pad[0]  # x padding
         coords[:, [1, 3]] -= pad[1]  # y padding
         coords[:, :4] /= gain
-        self.clip_coords(coords, img0_shape)
+        self._clip_coords(coords, img0_shape)
         return coords
 
-    def clip_coords(self, boxes, shape):
+    def _clip_coords(self, boxes, shape: Tuple[int, int]) -> None:
         # Clip bounding xyxy bounding boxes to image shape (height, width)
         if isinstance(boxes, torch.Tensor):  # faster individually
             boxes[:, 0].clamp_(0, shape[1])  # x1
