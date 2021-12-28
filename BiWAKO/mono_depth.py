@@ -1,15 +1,15 @@
-from typing import Union
+from typing import Literal, Union
 
 import cv2
 import numpy as np
 import onnxruntime as rt
 
 from .base_inference import BaseInference
-from .utils import Image, download_weight
+from .utils import Image, maybe_download_weight
 
 WEIGHT_PATH = {
-    "small": "https://github.com/NMZ0429/NaMAZU/releases/download/Checkpoint/mono_depth_small.onnx",
-    "large": "https://github.com/NMZ0429/NaMAZU/releases/download/Checkpoint/mono_depth_large.onnx",
+    "mono_depth_small": "https://github.com/NMZ0429/NaMAZU/releases/download/Checkpoint/mono_depth_small.onnx",
+    "mono_depth_large": "https://github.com/NMZ0429/NaMAZU/releases/download/Checkpoint/mono_depth_large.onnx",
 }
 
 __all__ = ["MiDASInference"]
@@ -20,23 +20,16 @@ __all__ = ["MiDASInference"]
 class MiDASInference(BaseInference):
     def __init__(
         self,
-        model_path: str = "",
-        model_type: str = "",
-        download: bool = False,
-        save_path: str = "",
+        model: Literal["mono_depth_small", "mono_depth_large"] = "mono_depth_small",
         show_exp: bool = False,
     ) -> None:
         """MiDAS Inference class.
 
         Args:
-            model_path (str): path to onnx file
-            model_type (str): 'large' or 'small' to download weight. Defaults to ''.
-            download (bool, optional): True to download weight. Defaults to False.
-            save_path (str, optional): path to save weight. Defaults to ''.
+            model (Literal["mono_depth_small", "mono_depth_large"], optional): Model name. Defaults to "mono_depth_small".
             show_exp (bool, optional): True to display expected input size. Defaults to False.
         """
-        model_path = self.__maybe_download(model_path, download, model_type, save_path)
-        self.model_path = model_path
+        self.model_path = maybe_download_weight(WEIGHT_PATH, model)
         self.session = rt.InferenceSession(self.model_path)
         self.__collect_setting(show_exp)
 
@@ -112,16 +105,3 @@ class MiDASInference(BaseInference):
         if verbose:
             print(f"Input shape: {self.input_shape}")
             print("Normalization expected.")
-
-    def __maybe_download(self, model_path, download, model_type, save_path) -> str:
-        # parse input and download weight if desired
-        if model_path == "":
-            if download:
-                if model_type == "large" or model_type == "small":
-                    model_path = download_weight(WEIGHT_PATH[model_type], save_path)
-                else:
-                    raise ValueError("model_type must be either 'large' or 'small'.")
-            else:
-                raise ValueError("model_path is required.")
-
-        return model_path

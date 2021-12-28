@@ -1,15 +1,29 @@
-import onnxruntime as rt
+from typing import Literal
+
 import cv2 as cv
 import numpy as np
+import onnxruntime as rt
 
 from .base_inference import BaseInference
-from .utils import Image
+from .utils import Image, maybe_download_weight
+
+WEIGHT_PATH = {
+    "super_resolution4864": "https://github.com/NMZ0429/NaMAZU/releases/download/Checkpoint/super_resolution4864.onnx",
+    "super_resolution6464": "https//github.com/NMZ0429/NaMAZU/releases/download/Checkpoint/super_resolution6464.onnx",
+}
 
 
 class RealESRGANInference(BaseInference):
-    def __init__(self, model: str) -> None:
-        self.model = model
-        self.session = rt.InferenceSession(self.model)
+    def __init__(
+        self, model: Literal["super_resolution4864", "super_resolution6464"]
+    ) -> None:
+        """RealESRGAN Inference class.
+
+        Args:
+            model (Literal["super_resolution4864", "super_resolution6464"]): Model name.
+        """
+        self.model_path = maybe_download_weight(WEIGHT_PATH, model)
+        self.session = rt.InferenceSession(self.model_path)
         _, _, self.w, self.h = self.session.get_inputs()[0].shape
         self.input_name = self.session.get_inputs()[0].name
         self.output_name = self.session.get_outputs()[0].name

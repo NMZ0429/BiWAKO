@@ -1,4 +1,5 @@
-from typing import Union
+import os
+from typing import Union, Dict
 import requests
 from tqdm import tqdm
 from pathlib import Path
@@ -37,6 +38,35 @@ def download_weight(file_url: str, save_path: Union[str, Path] = "") -> str:
         pbar.close()
 
     return str(output_file)
+
+
+def maybe_download_weight(url_dict: Dict[str, str], key: str) -> str:
+    """If "key.onnx" is in the current directory, return the path to the file. Otherwise, try to download the file from url_dict[key] and return the path to the saved file.
+
+    Args:
+        url_dict (Dict[str, str]): dictionary of url to onnx file
+        key (str): key to the url_dict
+
+    Raises:
+        ValueError: If the key is not in the url_dict
+
+    Returns:
+        str: path to the saved files
+    """
+    if not (os.path.exists(key) or os.path.exists(key + ".onnx")):
+        if key in url_dict:
+            model_path = download_weight(url_dict[key])
+        else:
+            raise ValueError(
+                f"Downloadable model not found: Available models are {list(url_dict.keys())}"
+            )
+    else:
+        if os.path.exists(key):
+            model_path = key
+        else:
+            model_path = key + ".onnx"
+
+    return model_path
 
 
 def print_onnx_information(onnx_path: str) -> None:

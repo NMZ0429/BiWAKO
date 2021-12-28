@@ -1,13 +1,12 @@
-import os
-from typing import Dict, Union, Tuple
 import copy
+from typing import Literal
+
 import cv2 as cv
-
 import numpy as np
-
 from onnxruntime import InferenceSession
+
 from .base_inference import BaseInference
-from .utils import download_weight, Image
+from .utils import Image, maybe_download_weight
 
 WEIGHT_PATH = {
     "basic": "https://github.com/NMZ0429/NaMAZU/releases/download/Checkpoint/basic.onnx",
@@ -21,19 +20,15 @@ __all__ = ["U2NetInference"]
 
 
 class U2NetInference(BaseInference):
-    def __init__(self, model: str):
-        if not (os.path.exists(model) or os.path.exists(model + ".onnx")):
-            if model in WEIGHT_PATH:
-                model_path = download_weight(WEIGHT_PATH[model])
-            else:
-                raise ValueError(
-                    f"Downloadable model not found: Available models are {list(WEIGHT_PATH.keys())}"
-                )
-        else:
-            if os.path.exists(model):
-                model_path = model
-            else:
-                model_path = model + ".onnx"
+    def __init__(
+        self, model: Literal["basic", "mobile", "human_seg", "portrait"]
+    ) -> None:
+        """U2Net Inference class.
+
+        Args:
+            model (Literal["basic", "mobile", "human_seg", "portrait"]): Model name.
+        """
+        model_path = maybe_download_weight(WEIGHT_PATH, model)
 
         self.IS = InferenceSession(model_path)
         self.input_name = self.IS.get_inputs()[0].name
