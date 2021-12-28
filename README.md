@@ -30,7 +30,7 @@ model = BiWAKO.MiDASInference(model_type="small")
 prediction = model.predict(image_or_image_path)
 
 # 3. Show result as a cv2 image
-result_img = model.predict(prediction, image_or_image_path)
+result_img = model.render(prediction, image_or_image_path)
 ```
 
 ## Models
@@ -40,3 +40,4 @@ result_img = model.predict(prediction, image_or_image_path)
 |Mono Depth Prediction| MiDAS| Large-Small|
 |Salient Object Detection| U2Net| Basic-Mobile-Human|
 |Super Resolution| RealESRGAN| Large-Small|
+|Object Detection| YOLOv5| nano-s-large-extreme|
