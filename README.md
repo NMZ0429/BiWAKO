@@ -37,8 +37,11 @@ result_img = model.render(prediction, image_or_image_path)
 
 |Task| Model| Weights|
 |:----|:----|:----|
-|Mono Depth Prediction| MiDAS| Large-Small|
-|Salient Object Detection| U2Net| Basic-Mobile-Human|
-|Super Resolution| RealESRGAN| Large-Small|
-|Object Detection| YOLOv5| nano-s-large-extreme|
-|Emotion Prediction| FerPlus|ferplus8|
+| Mono Depth Prediction | MiDAS | Large-Small |
+| Salient Object Detection | U2Net | Basic-Mobile-Human |
+| Super Resolution | RealESRGAN | Large-Small |
+| Object Detection | YOLOv5 | nano-s-large-extreme |
+| Emotion Prediction | FerPlus | ferplus8 |
+| Human Parsing | HumanParsing |human_attribute |
+| Denoise | HINet | denoise_320_480 |
+| Face Detection | YuNet | yunet_120_160 |
