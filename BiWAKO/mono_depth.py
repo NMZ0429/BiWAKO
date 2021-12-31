@@ -64,7 +64,7 @@ class MiDASInference(BaseInference):
         else:
             orig_img_size = self._read_image(query).shape[:2][::-1]
 
-        prediction = prediction.transpose((1, 2, 0))
+        prediction = self.normalize_depth(prediction).transpose((1, 2, 0))
         prediction = cv2.resize(
             prediction, orig_img_size, interpolation=cv2.INTER_CUBIC
         )
@@ -105,3 +105,18 @@ class MiDASInference(BaseInference):
         if verbose:
             print(f"Input shape: {self.input_shape}")
             print("Normalization expected.")
+
+    def normalize_depth(self, depth: np.ndarray, bits=2) -> np.ndarray:
+        depth_min = depth.min()
+        depth_max = depth.max()
+        max_val = (2 ** (8 * bits)) - 1
+        if depth_max - depth_min > np.finfo("float").eps:
+            out = max_val * (depth - depth_min) / (depth_max - depth_min)
+        else:
+            out = np.zeros(depth.shape, dtype=depth.dtype)
+        if bits == 1:
+            return out.astype("uint8")
+        elif bits == 2:
+            return out.astype("uint16")
+        else:
+            raise ValueError("bits must be 1 or 2")
