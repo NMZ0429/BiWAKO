@@ -33,6 +33,8 @@ prediction = model.predict(image_or_image_path)
 result_img = model.render(prediction, image_or_image_path)
 ```
 
+<img src="utils/biwako_api.png" width="800">
+
 ## Models
 
 |Task| Model| Weights|
