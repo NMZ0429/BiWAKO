@@ -45,3 +45,4 @@ result_img = model.render(prediction, image_or_image_path)
 | Human Parsing | HumanParsing |human_attribute |
 | Denoise | HINet | denoise_320_480 |
 | Face Detection | YuNet | yunet_120_160 |
+| Style Transfer | GAN | animeGAN512 |
