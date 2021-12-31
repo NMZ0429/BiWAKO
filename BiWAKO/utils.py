@@ -54,7 +54,8 @@ def maybe_download_weight(url_dict: Dict[str, str], key: str) -> str:
         str: path to the saved files
     """
     if not (os.path.exists(key) or os.path.exists(key + ".onnx")):
-        if key in url_dict:
+        splitted = os.path.split(key)[-1]
+        if splitted in url_dict or splitted.split(".")[0] in url_dict:
             model_path = download_weight(url_dict[key])
         else:
             raise ValueError(

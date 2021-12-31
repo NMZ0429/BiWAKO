@@ -8,6 +8,7 @@ __all__ = [
     "HumanParsing",
     "HINet",
     "YuNet",
+    "AnimeGAN",
 ]
 
 from .mono_depth import MiDASInference
@@ -18,4 +19,5 @@ from .emotion_prediction import FerPlus
 from .human_attribute import HumanParsing
 from .denoise import HINet
 from .face_detection import YuNet
+from .anime_gan import AnimeGAN
 
