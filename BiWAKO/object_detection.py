@@ -8,7 +8,7 @@ import cv2
 import onnxruntime as rt
 
 from .base_inference import BaseInference
-from .utils import Image, maybe_download_weight
+from .utils import Image, maybe_download_weight, Colors
 
 WEIGHT_PATH = {
     "yolo_nano": "https://github.com/NMZ0429/NaMAZU/releases/download/Checkpoint/yolo_nano.onnx",
@@ -27,7 +27,90 @@ class YOLO(BaseInference):
         self.session = rt.InferenceSession(self.model_path)
         self.input_name = self.session.get_inputs()[0].name
         self.output_name = self.session.get_outputs()[0].name
-        self.input_shape = tuple(self.session.get_inputs()[0].shape[2:])
+        self.input_shape = (1280, 1280) if model == "yolo_extreme" else (640, 640)
+        self.coco_label = [
+            "person",
+            "bicycle",
+            "car",
+            "motorcycle",
+            "airplane",
+            "bus",
+            "train",
+            "truck",
+            "boat",
+            "traffic light",
+            "fire hydrant",
+            "stop sign",
+            "parking meter",
+            "bench",
+            "bird",
+            "cat",
+            "dog",
+            "horse",
+            "sheep",
+            "cow",
+            "elephant",
+            "bear",
+            "zebra",
+            "giraffe",
+            "backpack",
+            "umbrella",
+            "handbag",
+            "tie",
+            "suitcase",
+            "frisbee",
+            "skis",
+            "snowboard",
+            "sports ball",
+            "kite",
+            "baseball bat",
+            "baseball glove",
+            "skateboard",
+            "surfboard",
+            "tennis racket",
+            "bottle",
+            "wine glass",
+            "cup",
+            "fork",
+            "knife",
+            "spoon",
+            "bowl",
+            "banana",
+            "apple",
+            "sandwich",
+            "orange",
+            "broccoli",
+            "carrot",
+            "hot dog",
+            "pizza",
+            "donut",
+            "cake",
+            "chair",
+            "couch",
+            "potted plant",
+            "bed",
+            "dining table",
+            "toilet",
+            "tv",
+            "laptop",
+            "mouse",
+            "remote",
+            "keyboard",
+            "cell phone",
+            "microwave",
+            "oven",
+            "toaster",
+            "sink",
+            "refrigerator",
+            "book",
+            "clock",
+            "vase",
+            "scissors",
+            "teddy bear",
+            "hair drier",
+            "toothbrush",
+        ]
+        self.colors = Colors()
 
     def predict(self, image: Image) -> np.ndarray:
         img = self._read_image(image)
@@ -49,14 +132,20 @@ class YOLO(BaseInference):
 
         lw = max(round(sum(rtn.shape) / 2 * 0.003), 2)
         for pred in prediction:
-            x1, y1, x2, y2 = pred[:4]
+            x1, y1, x2, y2 = pred[:4].astype("int")
+            cls = int(pred[5])
+            c = self.colors(cls, True)
             cv2.rectangle(
+                rtn, (x1, y1), (x2, y2), color=c, thickness=lw, lineType=cv2.LINE_AA,
+            )
+            cv2.putText(
                 rtn,
-                (int(x1), int(y1)),
-                (int(x2), int(y2)),
-                color=(128, 128, 128),
-                thickness=lw,
-                lineType=cv2.LINE_AA,
+                self.coco_label[cls],
+                (x1, y1 - 10),
+                cv2.FONT_HERSHEY_SIMPLEX,
+                0.8,
+                c,
+                2,
             )
 
         return rtn
@@ -108,7 +197,6 @@ class YOLO(BaseInference):
         multi_label &= nc > 1  # multiple labels per box (adds 0.5ms/img)
         merge = False  # use merge-NMS
 
-        t = time.time()
         output = [torch.zeros((0, 6), device=prediction.device)] * prediction.shape[0]
         for xi, x in enumerate(prediction):  # image index, image inference
             # Apply constraints
@@ -174,9 +262,6 @@ class YOLO(BaseInference):
                     i = i[iou.sum(1) > 1]  # require redundancy
 
             output[xi] = x[i]
-            if (time.time() - t) > time_limit:
-                print(f"WARNING: NMS time limit {time_limit}s exceeded")
-                break  # time limit exceeded
 
         return output
 
