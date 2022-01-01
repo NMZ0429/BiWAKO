@@ -55,8 +55,16 @@ def maybe_download_weight(url_dict: Dict[str, str], key: str) -> str:
     """
     if not (os.path.exists(key) or os.path.exists(key + ".onnx")):
         splitted = os.path.split(key)[-1]
-        if splitted in url_dict or splitted.split(".")[0] in url_dict:
-            model_path = download_weight(url_dict[key])
+        splitted = splitted.split(".")[-2] if ".onnx" in splitted else splitted
+        print(splitted)
+        if splitted in url_dict:
+            save_path = (
+                ""
+                if len(os.path.split(key)) == 1
+                else "/".join(os.path.split(key)[:-1])
+            )
+            print(save_path)
+            model_path = download_weight(url_dict[splitted], save_path=save_path)
         else:
             raise ValueError(
                 f"Downloadable model not found: Available models are {list(url_dict.keys())}"
