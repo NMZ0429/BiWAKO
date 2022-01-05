@@ -13,7 +13,7 @@ from .utils import Image, maybe_download_weight, Colors
 WEIGHT_PATH = {
     "yolo_nano": "https://github.com/NMZ0429/NaMAZU/releases/download/Checkpoint/yolo_nano.onnx",
     "yolo_s": "https://github.com/NMZ0429/NaMAZU/releases/download/Checkpoint/yolo_s.onnx",
-    "yolo_xl": "https://github..com/NMZ0429/NaMAZU/releases/download/Checkpoint/yolo_xl.onnx",
+    "yolo_xl": "https://github.com/NMZ0429/NaMAZU/releases/download/Checkpoint/yolo_xl.onnx",
     "yolo_extreme": "https://github.com/NMZ0429/NaMAZU/releases/download/Checkpoint/yolo_extreme.onnx",
 }
 
@@ -147,6 +147,7 @@ class YOLO(BaseInference):
                 c,
                 2,
             )
+            # print(f"{self.coco_label[cls]} {x1} {y1} {x2} {y2}")
 
         return rtn
 
