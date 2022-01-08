@@ -1,8 +1,8 @@
-__version__ = "0.0.1"
+__version__ = "0.0.2"
 __all__ = [
-    "MiDASInference",
-    "U2NetInference",
-    "RealESRGANInference",
+    "MiDAS",
+    "U2Net",
+    "RealESRGAN",
     "YOLO",
     "FerPlus",
     "HumanParsing",
@@ -11,9 +11,9 @@ __all__ = [
     "AnimeGAN",
 ]
 
-from .mono_depth import MiDASInference
-from .segmentation import U2NetInference
-from .super_resolution import RealESRGANInference
+from .mono_depth import MiDAS
+from .segmentation import U2Net
+from .super_resolution import RealESRGAN
 from .object_detection import YOLO
 from .emotion_prediction import FerPlus
 from .human_attribute import HumanParsing
