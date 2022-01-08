@@ -1,0 +1,38 @@
+site_name: BiWAKO
+
+theme:
+  name: "material"
+  icon:
+    logo: material/fish
+
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      primary: light blue
+      accent: green
+      scheme: default
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      primary: light blue
+      accent: green
+      scheme: slate
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to light mode
+
+nav:
+  - "Home": index.md
+  - "Human Parsing": human_parsing.md
+  - "Denoise Image": denoising.md
+  - "Style Transfer": style_transfer.md
+  - "Salient Object Segmenation": salient_det.md
+  - "Object Detection": obj_det.md
+  - "Emotion Recognition": emotion.md
+  - "Mono Depth Prediction": mono_depth.md
+  - "Super Resolution": super_resolution.md
+  - "Face Detection": face_det.md
+
+plugins:
+  - search
+  - mkdocstrings
