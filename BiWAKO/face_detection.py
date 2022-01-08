@@ -1,4 +1,4 @@
-from typing import Any, ClassVar, Literal, Optional, Tuple
+from typing import Any, ClassVar, Literal, Optional, Tuple, List
 from itertools import product
 
 import cv2 as cv
@@ -14,8 +14,19 @@ WEIGHT_PATH = {
 
 
 class YuNet(BaseInference):
+    """Face Detection model.
 
-    # Feature map用定義
+    Attributes:
+        model (onnxruntime.InferenceSession): ONNX model.
+        input_name (str): name of input node.
+        output_names (list): names of three output nodes.
+        input_shape (list): shape of input image. Set to [160, 120] by default.
+        conf_th (float): confidence threshold. Set to 0.6 by default.
+        nms_th (float): non-maximum suppression threshold. Set to 0.3 by default.
+        topk (int): keep top-k results. Set to 5000 by default.
+        priors (np.ndarray): prior boxes.
+    """
+
     MIN_SIZES = [[10, 16, 24], [32, 48], [64, 96], [128, 192, 256]]
     STEPS = [8, 16, 32, 64]
     VARIANCE = [0.1, 0.2]
@@ -29,55 +40,74 @@ class YuNet(BaseInference):
         topk=5000,
         keep_topk=750,
     ):
+        """Initialize YuNet.
+
+        Args:
+            model (Literal["yunet_120_160"] , optional): Choice of model or path to onnx file. Defaults to yunet_120_160.
+            input_shape (list, optional): Input image shape. Defaults to [160, 120].
+            conf_th (float, optional): Confidence level threshold. Defaults to 0.6.
+            nms_th (float, optional): NMS threshold. Defaults to 0.3.
+            topk (int, optional): Number of faces to detect. Defaults to 5000.
+            keep_topk (int, optional): Number of predictions to save. Defaults to 750.
+        """
         model_path = maybe_download_weight(WEIGHT_PATH, model)
-        self.onnx_session = InferenceSession(model_path)
+        self.model = InferenceSession(model_path)
+        self.input_name = self.model.get_inputs()[0].name
+        self.output_names = [self.model.get_outputs()[i].name for i in range(3)]
 
-        self.input_name = self.onnx_session.get_inputs()[0].name
-        output_name_01 = self.onnx_session.get_outputs()[0].name
-        output_name_02 = self.onnx_session.get_outputs()[1].name
-        output_name_03 = self.onnx_session.get_outputs()[2].name
-        self.output_names = [output_name_01, output_name_02, output_name_03]
-
-        # 各種設定
         self.input_shape = input_shape  # [w, h]
         self.conf_th = conf_th
         self.nms_th = nms_th
         self.topk = topk
         self.keep_topk = keep_topk
 
-        # priors生成
         self.priors = self._generate_priors()
 
-    def predict(self, image: Image) -> Any:
+    def predict(self, image: Image) -> Tuple[list, list, list]:
+        """Return the face detection result.
+        
+        The prediction result is a tuple of three lists.
+        First list is bounding boxes, second list is landmarks, and third list is scores.
+        For example, accesing 2nd parson's bounding box is done by prediction`[1][0]`, and prediction`[1][1]` is landmarks of 2nd person.
+
+        Args:
+            image (Image): image to be detected. Accept path or cv2 image.
+
+        Returns:
+            Tuple[list, list, list]: Tuple of three lists of bounding box, landmark, and score.
+        """
         img = self._read_image(image)
         img = self._preprocess(img)
 
-        pred = self.onnx_session.run(self.output_names, {self.input_name: img})
+        pred = self.model.run(self.output_names, {self.input_name: img})
 
         bboxes, landmarks, scores = self._postprocess(pred)
 
         return bboxes, landmarks, scores
 
-    def render(
-        self,
-        prediction: list,
-        image: Image,
-        score_th: float = 0.6,
-        input_shape=(160, 120),
-    ) -> np.ndarray:
+    def render(self, prediction: tuple, image: Image) -> np.ndarray:
+        """Render the bounding box and landmarks on the original image.
+
+        Args:
+            prediction (tuple): prediction result returned by predict().
+            image (Image): original image in str or cv2 image.
+
+        Returns:
+            np.ndarray: Original image with bounding box and landmarks.
+        """
         bboxes, landmarks, scores = prediction
         image = self._read_image(image)
         image_width, image_height = image.shape[1], image.shape[0]
 
         for bbox, landmark, score in zip(bboxes, landmarks, scores):
-            if score_th > score:
+            if self.conf_th > score:
                 continue
 
             # 顔バウンディングボックス
-            x1 = int(image_width * (bbox[0] / input_shape[0]))
-            y1 = int(image_height * (bbox[1] / input_shape[1]))
-            x2 = int(image_width * (bbox[2] / input_shape[0])) + x1
-            y2 = int(image_height * (bbox[3] / input_shape[1])) + y1
+            x1 = int(image_width * (bbox[0] / self.input_shape[0]))
+            y1 = int(image_height * (bbox[1] / self.input_shape[1]))
+            x2 = int(image_width * (bbox[2] / self.input_shape[0])) + x1
+            y2 = int(image_height * (bbox[3] / self.input_shape[1])) + y1
 
             cv.rectangle(image, (x1, y1), (x2, y2), (0, 255, 0), 2)
 
@@ -93,8 +123,8 @@ class YuNet(BaseInference):
 
             # 顔キーポイント
             for _, landmark_point in enumerate(landmark):
-                x = int(image_width * (landmark_point[0] / input_shape[0]))
-                y = int(image_height * (landmark_point[1] / input_shape[1]))
+                x = int(image_width * (landmark_point[0] / self.input_shape[0]))
+                y = int(image_height * (landmark_point[1] / self.input_shape[1]))
                 cv.circle(image, (x, y), 2, (0, 255, 0), 2)
 
         return image
@@ -148,7 +178,9 @@ class YuNet(BaseInference):
 
         return image
 
-    def _postprocess(self, result):
+    def _postprocess(
+        self, result
+    ) -> Tuple[List[np.ndarray], List[np.ndarray], List[float]]:
         # 結果デコード
         dets = self._decode(result)
 

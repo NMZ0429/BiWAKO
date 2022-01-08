@@ -11,13 +11,34 @@ WEIGHT_PATH = {
 
 
 class HINet(BaseInference):
-    def __init__(self, model: str = "") -> None:
-        # model_path = maybe_download_weight(model)
-        self.model = InferenceSession("denoise_320_480.onnx")
+    """HINet for denoising image.
+
+    Attributes:
+        model (InferenceSession): ONNX model.
+        input_name (str): Name of input node.
+        input_shape (tuple): Shape of input node.
+    """
+
+    def __init__(self, model: str = "denoise_320_480") -> None:
+        """Initialize HINet.
+
+        Args:
+            model (str, optional): Choise of model. Weight file is automatically downloaded to the current directory at the first time. Defaults to "denoise_320_480.onnx".
+        """
+        model_path = maybe_download_weight(WEIGHT_PATH, model)
+        self.model = InferenceSession(model_path)
         self.input_name = self.model.get_inputs()[0].name
         self.input_shape = (480, 320)
 
     def predict(self, image: Image) -> np.ndarray:
+        """Return denoised image.
+
+        Args:
+            image (Image): Image to be denoised in str or cv2 format.
+
+        Returns:
+            np.ndarray: Denoised image array containing two images for different denoising methods.
+        """
         img = self._read_image(image)
         img = self._preprocess(img)
         result = self.model.run(None, {self.input_name: img})
@@ -31,6 +52,21 @@ class HINet(BaseInference):
         output_type: Literal[0, 1] = 0,
         output_shape: Optional[Tuple[int, int]] = None,
     ) -> np.ndarray:
+        """Return the denoised image in original image size.
+
+        Args:
+            prediction (np.ndarray): Return value of predict().
+            image (Image, optional): Image to be processed in str or cv2 format. Defaults to None.
+            output_type (Literal[0, 1], optional): Choice of denoising method either 0 or 1. Defaults to 0.
+            output_shape (Optional[Tuple[int, int]], optional): Optional tuple of int to resize the return image. Defaults to None.
+
+        Raises:
+            ValueError: If none of the original image or image size is given.
+            ValueError: If output_type is not 0 or 1.
+
+        Returns:
+            np.ndarray: Denoised image in cv2 format.
+        """
         img_1, img_2 = self._postprocess(prediction)
         if image:
             h, w = self._read_image(image).shape[:2]

@@ -14,6 +14,17 @@ WEIGHT_PATH = {
 
 
 class HumanParsing(BaseInference):
+    """Basic ResNet50 model for parsing attributes of pedestrians
+
+    Attributes:
+        model (onnxruntime.InferenceSession): ONNXRuntime instance.
+        conf_thresh (float): confidence threshold for prediction.
+        input_name (str): name of input node.
+        output_name (str): name of output node.
+        input_shape (tuple): shape of input node.
+        labels (np.ndarray): mapping of label index to label name.
+    """
+
     def __init__(
         self, model: Literal["human_attribute"], conf_thresh: float = 0.4
     ) -> None:
@@ -36,9 +47,10 @@ class HumanParsing(BaseInference):
         )
 
     def predict(self, image: Image) -> np.ndarray:
-        """
+        """Return the prediction on the image.
+        
         Args:
-            image (Image): image to be processed
+            image (Image): image to be processed in str or cv2 format.
 
         Returns:
             np.ndarray: processed image
@@ -50,6 +62,15 @@ class HumanParsing(BaseInference):
         return onnx_result[0].squeeze()
 
     def render(self, prediction: np.ndarray, image: Image) -> np.ndarray:
+        """Return the original image with the prediction at the top left corner.
+
+        Args:
+            prediction (np.ndarray): prediction of the model.
+            image (Image): image to be rendered in str or cv2 format.
+
+        Returns:
+            np.ndarray: rendered image
+        """
         # filter array with confidence threshold
         label = self.labels[prediction > self.conf_thresh]
         img = self._read_image(image)

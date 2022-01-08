@@ -19,10 +19,27 @@ WEIGHT_PATH = {
 
 
 class YOLO(BaseInference):
+    """YOLOv5 onnx model.
+
+    Attributes:
+        model_path (str): Path to the onnx file. If auto download is triggered, the file is downloaded to this path.
+        session (onnxruntime.InferenceSession): Inference session.
+        input_name (str): Name of the input node.
+        output_name (str): Name of the output node.
+        input_shape (tuple): Shape of the input image. Set accordingly to the model.
+        coco_label (list): List of coco 80 labels.
+        colors (Colors): Color palette written by Ultralytics at https://github.com/ultralytics/yolov5/blob/a3d5f1d3e36d8e023806da0f0c744eef02591c9b/utils/plots.py
+    """
+
     def __init__(
         self,
         model: Literal["yolo_nano", "yolo_s", "yolo_xl", "yolo_extreme"] = "yolo_nano",
     ) -> None:
+        """Initialize the model.
+
+        Args:
+            model (Literal["yolo_nano", "yolo_s", "yolo_xl", "yolo_extreme"]): Model type to be used. Also accept path to the onnx file. If the model is not found, it will be downloaded automatically.
+        """
         self.model_path = maybe_download_weight(WEIGHT_PATH, model)
         self.session = rt.InferenceSession(self.model_path)
         self.input_name = self.session.get_inputs()[0].name
@@ -113,6 +130,14 @@ class YOLO(BaseInference):
         self.colors = Colors()
 
     def predict(self, image: Image) -> np.ndarray:
+        """Return the prediction of the model.
+
+        Args:
+            image (Image): Image to be predicted. Accept str or cv2 image.
+
+        Returns:
+            np.ndarray: n by 6 array where 2nd dimension is xyxy with label and confidence.
+        """
         img = self._read_image(image)
         orig_size = img.shape
         img = self._preprocess(img)
@@ -126,6 +151,15 @@ class YOLO(BaseInference):
         return clf.numpy()
 
     def render(self, prediction: np.ndarray, image: Image) -> np.ndarray:
+        """Return the original image with predicted bounding boxes.
+
+        Args:
+            prediction (np.ndarray): Prediction of the model.
+            image (Image): Image to be predicted. Accept str or cv2 image.
+
+        Returns:
+            np.ndarray: Image with predicted bounding boxes in cv2 format.
+        """
         rtn = self._read_image(image)
         rtn = cv2.cvtColor(rtn, cv2.COLOR_RGB2BGR)
         rtn = cv2.cvtColor(rtn, cv2.COLOR_BGR2RGB)

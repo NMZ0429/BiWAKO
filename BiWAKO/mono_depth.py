@@ -12,21 +12,32 @@ WEIGHT_PATH = {
     "mono_depth_large": "https://github.com/NMZ0429/NaMAZU/releases/download/Checkpoint/mono_depth_large.onnx",
 }
 
-__all__ = ["MiDASInference"]
+__all__ = ["MiDAS"]
 
 # TODO: Avoid downloading exsitng model
 
 
-class MiDASInference(BaseInference):
+class MiDAS(BaseInference):
+    """MonoDepth prediction model.
+
+    Attributes:
+        model_path (str): Path to model file. If automatic download is triggered, this path is used to save the model.
+        session (onnxruntime.InferenceSession): Inference session.
+        input_name (str): Input node name.
+        output_name (str): Output node name.
+        input_shape (tuple): Input shape.
+        h, w (int): Alias of input_shape[2], input_shape[3].
+    """
+
     def __init__(
         self,
         model: Literal["mono_depth_small", "mono_depth_large"] = "mono_depth_small",
         show_exp: bool = False,
     ) -> None:
-        """MiDAS Inference class.
+        """Initialize model.
 
         Args:
-            model (Literal["mono_depth_small", "mono_depth_large"], optional): Model name. Defaults to "mono_depth_small".
+            model (Literal["mono_depth_small", "mono_depth_large"], optional): Model name. Defaults to "mono_depth_small". Onnx file is downloaded automatically.
             show_exp (bool, optional): True to display expected input size. Defaults to False.
         """
         self.model_path = maybe_download_weight(WEIGHT_PATH, model)

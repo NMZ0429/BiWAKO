@@ -11,7 +11,25 @@ WEIGHT_PATH = {
 
 
 class FerPlus(BaseInference):
-    def __init__(self, model: str):
+    """Emotion prediction model.
+    
+    The model requires the input image to be trimmed around the face.
+    Use YuNet to detect the face and crop the image around it.
+
+    Attributes:
+        model_path (str): Path to the model weights. If automatic download is triggered, this path is used to save the model.
+        session (onnxruntime.InferenceSession): The inference session.
+        input_name (str): The name of the input node.
+        output_name (str): The name of the output node.
+        emotion_table (list): A list of emotions trained.        
+    """
+
+    def __init__(self, model: str = "ferplus8"):
+        """Initialize the model.
+
+        Args:
+            model (str): The name of the model. Also accept the path to the onnx file. If not found, the model will be downloaded. Currently only support "ferplus8".
+        """
         self.model_path = maybe_download_weight(WEIGHT_PATH, model)
         self.session = InferenceSession(self.model_path)
         self.input_name = self.session.get_inputs()[0].name
@@ -28,6 +46,14 @@ class FerPlus(BaseInference):
         ]
 
     def predict(self, image: Image) -> np.ndarray:
+        """Return the array of the confidences of each predction.
+
+        Args:
+            image (Image): Image to be processed. Accept the path to the image or cv2 image.
+
+        Returns:
+            np.ndarray: The array of the confidences of each predction.
+        """
 
         image = self._read_image(image)
         image = self._preprocess(image)
@@ -37,6 +63,17 @@ class FerPlus(BaseInference):
         return prediction
 
     def render(self, prediction: np.ndarray, image: Image) -> np.ndarray:
+        """Return the list of emotions and their confidences in string.
+        
+        This method is currently under the development.
+
+        Args:
+            prediction (np.ndarray): The array of the confidences of each predction.
+            image (Image): Image to be processed. Accept the path to the image or cv2 image. Not actually required.
+
+        Returns:
+            np.ndarray: The list of emotions and their confidences in string.
+        """
         # convert prediction to emotion_table
         rtn = []
         for k, i in enumerate(prediction):

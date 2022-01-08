@@ -13,14 +13,24 @@ WEIGHT_PATH = {
 }
 
 
-class RealESRGANInference(BaseInference):
+class RealESRGAN(BaseInference):
+    """Super Resolution model.
+    
+    Attributes:
+        model_path (str): Path to the model. If automatic download is enabled, it will be downloaded to this path.
+        session (rt.InferenceSession): ONNX Runtime session.
+        w, h (int): Width and height of the model input.
+        input_name (str): Name of the input node.
+        output_name (str): Name of the output node.
+    """
+
     def __init__(
         self, model: Literal["super_resolution4864", "super_resolution6464"]
     ) -> None:
-        """RealESRGAN Inference class.
+        """Initialize RealESRGAN.
 
         Args:
-            model (Literal["super_resolution4864", "super_resolution6464"]): Model name.
+            model (Literal["super_resolution4864", "super_resolution6464"]): Model name. If model has not been downloaded, it will be downloaded automatically. Currently supports ["super_resolution4864", "super_resolution6464"].
         """
         self.model_path = maybe_download_weight(WEIGHT_PATH, model)
         self.session = rt.InferenceSession(self.model_path)
@@ -29,6 +39,14 @@ class RealESRGANInference(BaseInference):
         self.output_name = self.session.get_outputs()[0].name
 
     def predict(self, image: Image) -> np.ndarray:
+        """Return the upscaled image.
+
+        Args:
+            image (Image): Image to be upscaled. Accept path or cv2 image.
+
+        Returns:
+            np.ndarray: Upscaled image in cv2 format.
+        """
         image = self._read_image(image)
         input_image = self._preprocess(image)
         result = self.session.run([self.output_name], {self.input_name: input_image})[0]
@@ -36,6 +54,15 @@ class RealESRGANInference(BaseInference):
         return self.__postprocess(result)
 
     def render(self, prediction: np.ndarray, image: Image) -> np.ndarray:
+        """Return the upscaled image. This is just a placeholder.
+
+        Args:
+            prediction (np.ndarray): Upscaled image in cv2 format. This image is returned.
+            image (Image): Original image. Not used.
+
+        Returns:
+            np.ndarray: Upscaled image in cv2 format.
+        """
         return prediction
 
     def _preprocess(self, img: np.ndarray) -> np.ndarray:

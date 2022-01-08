@@ -16,17 +16,28 @@ WEIGHT_PATH = {
 }
 
 
-__all__ = ["U2NetInference"]
+__all__ = ["U2Net"]
 
 
-class U2NetInference(BaseInference):
+class U2Net(BaseInference):
+    """Salient object segmentation model.
+    
+    Attributes:
+        IS (onnxruntime.InferenceSession): Inference session.
+        input_name (str): Input node name.
+        output_name (str): Output node name.
+        input_size (int): Input size. Set to 320.
+        mean (List[float]): Mean. Set to [0.485, 0.456, 0.406].
+        std (List[float]): Standard deviation. Set to [0.229, 0.224, 0.225].
+    """
+
     def __init__(
         self, model: Literal["basic", "mobile", "human_seg", "portrait"]
     ) -> None:
         """U2Net Inference class.
 
         Args:
-            model (Literal["basic", "mobile", "human_seg", "portrait"]): Model name.
+            model (Literal["basic", "mobile", "human_seg", "portrait"]): Model name. If model has not been downloaded, it will be downloaded automatically.
         """
         model_path = maybe_download_weight(WEIGHT_PATH, model)
 
@@ -38,8 +49,13 @@ class U2NetInference(BaseInference):
         self.std = [0.229, 0.224, 0.225]
 
     def predict(self, image: Image) -> np.ndarray:
-        """
-        Returns: masks
+        """Return the predicted mask of the image.
+        
+        Args:
+            image (Union[str, np.ndarray]): Image in cv2 format or path to image.
+        
+        Returns:
+            np.ndarray: Predicted mask in cv2 format.
         """
 
         x = self._read_image(image)
@@ -58,14 +74,14 @@ class U2NetInference(BaseInference):
         return onnx_result
 
     def render(self, prediction: np.ndarray, image: Image) -> np.ndarray:
-        """Render prediction on image.
+        """Apply the predicted mask to the original image.
 
         Args:
             prediction (np.ndarray): Predicted mask in cv2 format.
             image (Union[str, np.ndarray]): Image in cv2 format or path to image.
         
         Returns:
-            np.ndarray: Rendered image.
+            np.ndarray: Rendered original image in cv2 format.
         """
         img = cv.imread(image) if isinstance(image, str) else image
         mask = copy.deepcopy(prediction)
@@ -84,7 +100,10 @@ class U2NetInference(BaseInference):
         5. Add batch dimension.
 
         Args:
-            img (np.ndarray): image in cv2 format
+            img (np.ndarray): image in cv2 format.
+        
+        Returns:
+            np.ndarray: Preprocessed image in cv2 format.
         """
         x = cv.cvtColor(img, cv.COLOR_BGR2RGB)
         x = cv.resize(img, dsize=(self.input_size, self.input_size))
