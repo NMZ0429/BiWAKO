@@ -1,14 +1,14 @@
-from BiWAKO import MiDASInference, YOLO, U2NetInference, HumanParsing, YuNet
+from BiWAKO import MiDAS, YOLO, U2Net, HumanParsing, YuNet
 import cv2
 
 cap = cv2.VideoCapture(0)
 
 # setup
 # model = MiDASInference("mono_depth_small")
-model = YOLO("yolo_nano")
+# model = YOLO("yolo_nano")
 # model = U2NetInference("mobile")
 # model = HumanParsing("human_attribute")
-# model = YuNet()
+model = YuNet()
 
 while True:
 
