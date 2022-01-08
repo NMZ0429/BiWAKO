@@ -3,12 +3,13 @@ import cv2
 
 cap = cv2.VideoCapture(0)
 
-# setup
+# Uncomment the model you want to use and comment out the other models
+
 # model = MiDASInference("mono_depth_small")
-# model = YOLO("yolo_nano")
-# model = U2NetInference("mobile")
+model = YOLO("yolo_nano")
+# model = U2Net("mobile")
 # model = HumanParsing("human_attribute")
-model = YuNet()
+# model = YuNet()
 
 while True:
 
@@ -18,6 +19,6 @@ while True:
 
     if cv2.waitKey(1) & 0xFF == ord("q"):
         break
-# When everything done, release the capture
+
 cap.release()
 cv2.destroyAllWindows()
