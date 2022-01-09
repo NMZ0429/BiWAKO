@@ -2,10 +2,9 @@ import cv2 as cv
 import numpy as np
 from onnxruntime import InferenceSession
 
-
 from .base_inference import BaseInference
-from .util.utils import Image, maybe_download_weight
 from .util.imagenet import get_imagenet_label
+from .util.utils import Image, maybe_download_weight
 
 WEIGHT_PATH = {
     "resnet152v2": "https://github.com/NMZ0429/NaMAZU/releases/download/Checkpoint/resnet152v2.onnx",
@@ -16,7 +15,19 @@ WEIGHT_PATH = {
 
 
 class ResNet(BaseInference):
-    def __init__(self, model: str) -> None:
+    """Basic ResNet V2 trained on ImageNet
+
+    Attributes:
+        model_path (str): Path to the model file. If automatic download is not enabled, this path is used to save the file.
+        model (onnxruntime.InferenceSession): Inference session for the model.
+        input_name (str): Name of the input node.
+        output_name (str): Name of the output node.
+        input_shape (tuple): Shape of the input node.
+        label (dict): Dictionary of the label. The key is the class index and the value is the class name.
+        mean, var (np.ndarray): Mean and variance of the input image.
+    """
+
+    def __init__(self, model: str = "resnet18v2") -> None:
         self.mean = np.array([0.485, 0.456, 0.406]).reshape((1, 1, 3))
         self.var = np.array([0.229, 0.224, 0.225]).reshape((1, 1, 3))
         self.model_path = maybe_download_weight(WEIGHT_PATH, model)
@@ -27,6 +38,14 @@ class ResNet(BaseInference):
         self.label = get_imagenet_label()
 
     def predict(self, image: Image) -> np.ndarray:
+        """Return the prediction of the model
+
+        Args:
+            image (Image): Image to be predicted. Accept path or cv2 image.
+
+        Returns:
+            np.ndarray: 1 by 1000 array of the prediction. Softmax is not applied.
+        """
         image = self._read_image(image)
         image = self._preprocess(image)
         pred = self.model.run([self.output_name], {self.input_name: image})[0]
@@ -36,6 +55,16 @@ class ResNet(BaseInference):
     def render(
         self, prediction: np.ndarray, image: Image, topk: int = 5, **kwargs
     ) -> np.ndarray:
+        """Return the original image with the predicted class names
+
+        Args:
+            prediction (np.ndarray): Prediction returned by predict().
+            image (Image): Image to be predicted. Accept path or cv2 image.
+            topk (int, optional): Number of classes to display with higher probability. Defaults to 5.
+
+        Returns:
+            np.ndarray: Image with the predicted class names.
+        """
         image = self._read_image(image)
         score = self._postprocess(prediction)
         for i in range(topk):
@@ -62,7 +91,6 @@ class ResNet(BaseInference):
         image = image.transpose((2, 0, 1))
         # channel first to channel last
         image = np.expand_dims(image, axis=0)
-        print(image.dtype, image.shape)
 
         return image
 
