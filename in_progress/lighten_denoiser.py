@@ -4,7 +4,7 @@ from numpy import ndarray
 
 from onnxruntime import InferenceSession
 from .base_inference import BaseInference
-from .utils import Image, maybe_download_weight
+from .util.utils import Image, maybe_download_weight
 
 WEIGHT_PATH = {
     "hep480_640": "https://github.com/NMZ0429/NaMAZU/releases/download/Checkpoint/hep480_640.onnx"
