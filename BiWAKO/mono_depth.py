@@ -5,7 +5,7 @@ import numpy as np
 import onnxruntime as rt
 
 from .base_inference import BaseInference
-from .utils import Image, maybe_download_weight
+from .util.utils import Image, maybe_download_weight
 
 WEIGHT_PATH = {
     "mono_depth_small": "https://github.com/NMZ0429/NaMAZU/releases/download/Checkpoint/mono_depth_small.onnx",

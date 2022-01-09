@@ -3,7 +3,7 @@ from abc import ABC, abstractmethod
 import cv2 as cv
 import numpy as np
 
-from .utils import Image
+from .util.utils import Image
 
 
 class BaseInference(ABC):

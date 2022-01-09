@@ -6,7 +6,7 @@ import numpy as np
 from onnxruntime import InferenceSession
 
 from .base_inference import BaseInference
-from .utils import Image, maybe_download_weight
+from .util.utils import Image, maybe_download_weight
 
 WEIGHT_PATH = {
     "human_attribute": "https://github.com/NMZ0429/NaMAZU/releases/download/Checkpoint/human_attribute.onnx"

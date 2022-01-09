@@ -8,7 +8,7 @@ import cv2
 import onnxruntime as rt
 
 from .base_inference import BaseInference
-from .utils import Image, maybe_download_weight, Colors
+from .util.utils import Image, maybe_download_weight, Colors
 
 WEIGHT_PATH = {
     "yolo_nano": "https://github.com/NMZ0429/NaMAZU/releases/download/Checkpoint/yolo_nano.onnx",

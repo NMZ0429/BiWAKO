@@ -1,9 +1,9 @@
-from .base_inference import BaseInference
-from onnxruntime import InferenceSession
-from .utils import Image, maybe_download_weight
-import numpy as np
 import cv2 as cv
+import numpy as np
+from onnxruntime import InferenceSession
 
+from .base_inference import BaseInference
+from .util.utils import Image, maybe_download_weight
 
 WEIGHT_PATH = {
     "ferplus8": "https://github.com/NMZ0429/NaMAZU/releases/download/Checkpoint/ferplus8.onnx"

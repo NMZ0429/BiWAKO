@@ -3,7 +3,7 @@ from onnxruntime import InferenceSession
 import numpy as np
 import cv2 as cv
 from .base_inference import BaseInference
-from .utils import maybe_download_weight, Image
+from .util.utils import maybe_download_weight, Image
 
 WEIGHT_PATH = {
     "denoise_320_480": "https://github.com/NMZ0429/NaMAZU/releases/download/Checkpoint/denoise_320_480.onnx"
