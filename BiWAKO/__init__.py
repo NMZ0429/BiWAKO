@@ -9,6 +9,7 @@ __all__ = [
     "HINet",
     "YuNet",
     "AnimeGAN",
+    "ResNet",
 ]
 
 from .mono_depth import MiDAS
@@ -20,4 +21,5 @@ from .human_attribute import HumanParsing
 from .denoise import HINet
 from .face_detection import YuNet
 from .anime_gan import AnimeGAN
+from .image_classification import ResNet
 
