@@ -36,3 +36,4 @@ result_img = model.render(prediction, image_or_image_path)
 | Denoise | [HINet](denoising.md) | denoise_320_480 |
 | Face Detection | [YuNet](face_det.md) | yunet_120_160 |
 | Style Transfer | [AnimeGAN](style_transfer.md) | animeGAN512 |
+| Image Classification | [ResNetV2](image_clf.md) | resnet152v2-resnet101v2-resnet50v2-resnet18v2 |

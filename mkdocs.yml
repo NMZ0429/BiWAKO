@@ -32,6 +32,7 @@ nav:
   - "Mono Depth Prediction": mono_depth.md
   - "Super Resolution": super_resolution.md
   - "Face Detection": face_det.md
+  - "Image Classification": image_clf.md
 
 plugins:
   - search
