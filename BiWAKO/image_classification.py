@@ -24,10 +24,22 @@ class ResNet(BaseInference):
         output_name (str): Name of the output node.
         input_shape (tuple): Shape of the input node.
         label (dict): Dictionary of the label. The key is the class index and the value is the class name.
-        mean, var (np.ndarray): Mean and variance of the input image.
+        mean (np.ndarray): Mean of the normalization.
+        var (np.ndarray): Variance of the normalization.
     """
 
     def __init__(self, model: str = "resnet18v2") -> None:
+        """Initialize ResNet
+        
+        Available models:
+                "resnet152v2"
+                "resnet101v2"
+                "resnet50v2" or
+                "resnet18v2"
+
+        Args:
+            model (str, optional): Choice of the model from the table above or path to the downloaded onnx file. If the file has not been downloaded, the automatic download is triggered. Defaults to "resnet18v2".
+        """
         self.mean = np.array([0.485, 0.456, 0.406]).reshape((1, 1, 3))
         self.var = np.array([0.229, 0.224, 0.225]).reshape((1, 1, 3))
         self.model_path = maybe_download_weight(WEIGHT_PATH, model)
