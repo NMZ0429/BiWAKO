@@ -130,3 +130,4 @@ dmypy.json
 
 # extra
 weights
+.DS_Store
