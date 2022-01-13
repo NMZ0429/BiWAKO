@@ -26,7 +26,8 @@ class MiDAS(BaseInference):
         input_name (str): Input node name.
         output_name (str): Output node name.
         input_shape (tuple): Input shape.
-        h, w (int): Alias of input_shape[2], input_shape[3].
+        h (int): Alias of input_shape[2].
+        w (int): Alias of input_shape[3].
     """
 
     def __init__(
