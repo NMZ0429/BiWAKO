@@ -67,7 +67,7 @@ It is extremely easy to use BiWAKO at application layer.
 
 !!! Tip "1. Real Time Prediction"
     ![live demo](img/live_demo.png){ align=left style="height:300px;width:450px"}
-    Any models can be used in the same way to run real-time inference.
+    Any model can be used in the same way to run real-time inference.
 
 !!! Tip "2. FastAPI Implementation"
     ![fastapi demo](img/fastapi_demo.png){align=left style="height:300px;width:450px"}
