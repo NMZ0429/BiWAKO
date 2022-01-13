@@ -34,7 +34,7 @@ No matter which model you use, these interface is the same.
 import BiWAKO
 
 # 1. Initialize Model
-model = BiWAKO.MiDAS(model_type="small")
+model = BiWAKO.MiDAS(model="mono_depth_small")
 
 # 2. Feed Image (accept cv2 image or path to the image)
 prediction = model.predict(image_or_image_path)
@@ -61,11 +61,14 @@ Click the link at the model column for futher documentation.
 | Style Transfer | [AnimeGAN](style_transfer.md) | animeGAN512 |
 | Image Classification | [ResNetV2](image_clf.md) | resnet152v2-resnet101v2-resnet50v2-resnet18v2 |
 
-## 5. Toward Apps
+## 5. Deployment
 
 It is extremely easy to use BiWAKO at application layer.
 
-### 1. Real Time Prediction
+!!! Tip "1. Real Time Prediction"
+    ![live demo](img/live_demo.png){ align=left style="height:300px;width:450px"}
+    Any models can be used in the same way to run real-time inference.
 
-![live demo](img/live_demo.png){ align=left style="height:300px;width:450px"}
-Any models can be used in the same way to run real-time inference.
+!!! Tip "2. FastAPI Implementation"
+    ![fastapi demo](img/fastapi_demo.png){align=left style="height:300px;width:450px"}
+    Like the above example, you can build simple Backend API for inference on web server.
