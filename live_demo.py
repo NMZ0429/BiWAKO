@@ -8,9 +8,9 @@ from BiWAKO import YOLO, HumanParsing, MiDAS, U2Net, YuNet, ResNet
 
 # model = MiDASInference("mono_depth_small")
 # model = YOLO("yolo_nano")
-# model = U2Net("mobile")
+model = U2Net("mobile")
 # model = HumanParsing("human_attribute")
-model = YuNet()
+# model = YuNet()
 # model = ResNet("resnet18v2")
 
 cap = cv2.VideoCapture(0)
