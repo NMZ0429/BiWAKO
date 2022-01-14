@@ -8,6 +8,27 @@ import numpy as np
 Image = Union[str, np.ndarray]
 
 
+def _download_file(url: str, filename: str) -> str:
+    """Download a file from url to filename.
+    
+    Args:
+        url (str): url to download file
+        filename (str): filename to save the file
+    
+    Returns:
+        str: path to the saved file
+    """
+    chunkSize = 1024
+    r = requests.get(url, stream=True)
+    with open(filename, "wb") as f:
+        pbar = tqdm(unit="B", total=int(r.headers["Content-Length"]), unit_scale=True)
+        for chunk in r.iter_content(chunk_size=chunkSize):
+            if chunk:  # filter out keep-alive new chunks
+                pbar.update(len(chunk))
+                f.write(chunk)
+    return filename
+
+
 def download_weight(file_url: str, save_path: Union[str, Path] = "") -> str:
     """Download onnx file to save_path and return the path to the saved file.
 
@@ -24,20 +45,11 @@ def download_weight(file_url: str, save_path: Union[str, Path] = "") -> str:
         if not save_path.exists():
             save_path.mkdir(parents=True)
 
-    output_file = save_path / file_url.split("/")[-1]
-    file_size = int(requests.head(file_url).headers["content-length"])
+    output_file = str(save_path / file_url.split("/")[-1])
+    print(f"downloading {file_url.split('/')[-1]} to {output_file}")
+    _download_file(url=file_url, filename=output_file)
 
-    res = requests.get(file_url, stream=True)
-    pbar = tqdm(
-        total=file_size, unit="B", unit_scale=True, desc=file_url.split("/")[-1]
-    )
-    with open(output_file, "wb") as file:
-        for chunk in res.iter_content(chunk_size=1024):
-            file.write(chunk)
-            pbar.update(len(chunk))
-        pbar.close()
-
-    return str(output_file)
+    return output_file
 
 
 def maybe_download_weight(url_dict: Dict[str, str], key: str) -> str:
@@ -56,7 +68,6 @@ def maybe_download_weight(url_dict: Dict[str, str], key: str) -> str:
     if not (os.path.exists(key) or os.path.exists(key + ".onnx")):
         splitted = os.path.split(key)[-1]
         splitted = splitted.split(".")[-2] if ".onnx" in splitted else splitted
-        print(splitted)
         if splitted in url_dict:
             save_path = (
                 ""
@@ -121,6 +132,7 @@ def print_onnx_information(onnx_path: str) -> None:
         print()
 
 
+# Reference: https://github.com/ultralytics/yolov5/blob/c6c88dc601fbdbe4e3391ba14245ec2740b5d01a/utils/plots.py#L28-L44 by ultralytics
 class Colors:
     def __init__(self):
         hex = (
