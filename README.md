@@ -20,6 +20,10 @@
 
 No matter which model you use, these interface is the same.
 
+1. Instantiate model with `BiWAKO.ModelName(weight)`. `ModelName` and `weight` can be found at the table in the next section. Weight file is automaticaly downloaded.
+2. call `predict(image)`. `image` can be either path to the image or cv2 image array.
+3. call `render(prediction, image)`. `prediction` is the return value of `predict()` method.
+
 ```python
 import BiWAKO
 
