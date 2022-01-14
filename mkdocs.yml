@@ -33,6 +33,7 @@ nav:
   - "Super Resolution": super_resolution.md
   - "Face Detection": face_det.md
   - "Image Classification": image_clf.md
+  - "Human Portrait Segmentation": human_seg.md
 
 plugins:
   - search
