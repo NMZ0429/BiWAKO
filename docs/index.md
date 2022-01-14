@@ -60,6 +60,7 @@ Click the link at the model column for futher documentation.
 | Face Detection | [YuNet](face_det.md) | yunet_120_160 |
 | Style Transfer | [AnimeGAN](style_transfer.md) | animeGAN512 |
 | Image Classification | [ResNetV2](image_clf.md) | resnet152v2-resnet101v2-resnet50v2-resnet18v2 |
+| Human Portrait Segmentation | [MODNet](human_seg.md) | modnet_256 |
 
 ## 5. Deployment
 
