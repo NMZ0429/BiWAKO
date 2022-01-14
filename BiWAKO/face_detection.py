@@ -1,5 +1,5 @@
-from typing import Any, ClassVar, Literal, Optional, Tuple, List
 from itertools import product
+from typing import List, Literal, Tuple
 
 import cv2 as cv
 import numpy as np
