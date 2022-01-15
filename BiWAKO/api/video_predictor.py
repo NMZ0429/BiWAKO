@@ -11,9 +11,26 @@ __all__ = ["VideoPredictor"]
 
 class VideoPredictor:
     def __init__(self, model: BaseInference) -> None:
+        """Initiaslize VideoPredictor.
+
+        Args:
+            model (BaseInference): BiWAKO model instance.
+        
+        Examples:
+            >>> video_predictor = VideoPredictor(model=BiWAKO.MiDAS())
+        """
         self.model = model
 
     def run(self, video_path: str, title: Optional[str] = None) -> None:
+        """Predict video at video_path, render the result as a single mp4 and save the result at the same directory.
+
+        Args:
+            video_path (str): Path to the video to predict.
+            title (str, optional): Title of the output mp4 file. Defaults to use the model name.
+            
+        Examples:
+            >>> video_predictor.run(video_path="video.mp4")
+        """
         self.predict_video(video_path, self.model, title)
 
     def predict_video(
@@ -57,31 +74,6 @@ class VideoPredictor:
 
         cv.destroyAllWindows()
         output_video.release()
-
-    def make_video(self, video_path: str, img_size: tuple, fps=25.0) -> None:
-        """Make video from frames in frame_path. The result is saved at the same directory as video_path.
-
-        Args:
-            frame_path (str): Path to the directory containing frames.
-            video_path (str): Path to the video to save.
-        """
-        # encoder(for mp4)
-        fourcc = cv.VideoWriter_fourcc("m", "p", "4", "v")
-
-        # output file name, encoder, fps, size(fit to image size)
-        frame_path = Path(video_path).parent / "predictions"
-        video_path = str(Path(frame_path).parent / "predictions.mp4")
-        video = cv.VideoWriter(video_path, fourcc, fps, img_size)
-
-        # read frames in frame_path
-        # frames = natsorted([str(p) for p in Path(frame_path).glob("*.png")])
-        frames = [str(p) for p in Path(frame_path).glob("*.png")]
-        for f in frames:
-            img = cv.imread(str(f))
-            video.write(img)
-
-        cv.destroyAllWindows()
-        video.release()
 
     def clean_up(self, video_path: str):
         # delete all files in predictions and remove predictions directory
