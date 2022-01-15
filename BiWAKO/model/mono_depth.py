@@ -80,6 +80,8 @@ class MiDAS(BaseInference):
         prediction = cv2.resize(
             prediction, orig_img_size, interpolation=cv2.INTER_CUBIC
         )
+        prediction = cv2.cvtColor(prediction, cv2.COLOR_GRAY2BGR)
+
         return prediction
 
     def _preprocess(self, img: np.ndarray) -> np.ndarray:
@@ -118,7 +120,19 @@ class MiDAS(BaseInference):
             print(f"Input shape: {self.input_shape}")
             print("Normalization expected.")
 
-    def normalize_depth(self, depth: np.ndarray, bits=2) -> np.ndarray:
+    def normalize_depth(self, depth: np.ndarray, bits=1) -> np.ndarray:
+        """Nomralize depthmap by given bits.
+
+        Args:
+            depth (np.ndarray): Depth map predicted by model.
+            bits (int, optional): Number of bits used to normalize the depth map. Defaults to 1.
+
+        Raises:
+            ValueError: If bits is not in [1, 8].
+
+        Returns:
+            np.ndarray: Normalized depth map.
+        """
         depth_min = depth.min()
         depth_max = depth.max()
         max_val = (2 ** (8 * bits)) - 1

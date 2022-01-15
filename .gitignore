@@ -132,3 +132,4 @@ dmypy.json
 weights
 .DS_Store
 *.onnx
+*.ipynb

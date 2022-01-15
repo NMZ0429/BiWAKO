@@ -25,7 +25,9 @@ class HumanParsing(BaseInference):
     """
 
     def __init__(
-        self, model: Literal["human_attribute"], conf_thresh: float = 0.4
+        self,
+        model: Literal["human_attribute"] = "human_attribute",
+        conf_thresh: float = 0.4,
     ) -> None:
         model_path = maybe_download_weight(WEIGHT_PATH, model)
         self.conf_thresh = conf_thresh
