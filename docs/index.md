@@ -43,6 +43,10 @@ prediction = model.predict(image_or_image_path)
 result_img = model.render(prediction, image_or_image_path)
 ```
 
+### 2-2 High Level APIs
+
+We also provides some APIs to even accelerate productions. See [API page](api/index.md) for further details/
+
 ## 4. Models
 
 The following list is the current availability of models with weight variations.  
@@ -50,17 +54,17 @@ Click the link at the model column for futher documentation.
 
 |Task| Model| Weights|
 |:----|:----|:----|
-| Mono Depth Prediction | [MiDAS](mono_depth.md) | mono_depth_small-mono_depth_large |
-| Salient Object Detection | [U2Net](salient_det.md) | Basic-Mobile-Human |
-| Super Resolution | [RealESRGAN](super_resolution.md) | Large-Small |
-| Object Detection | [YOLO](obj_det.md) | nano-s-large-extreme |
-| Emotion Prediction | [FerPlus](emotion.md) | ferplus8 |
-| Human Parsing | [HumanParsing](human_parsing.md) |human_attribute |
-| Denoise | [HINet](denoising.md) | denoise_320_480 |
-| Face Detection | [YuNet](face_det.md) | yunet_120_160 |
-| Style Transfer | [AnimeGAN](style_transfer.md) | animeGAN512 |
-| Image Classification | [ResNetV2](image_clf.md) | resnet152v2-resnet101v2-resnet50v2-resnet18v2 |
-| Human Portrait Segmentation | [MODNet](human_seg.md) | modnet_256 |
+| Mono Depth Prediction | [MiDAS](models/mono_depth.md) | mono_depth_small-mono_depth_large |
+| Salient Object Detection | [U2Net](models/salient_det.md) | Basic-Mobile-Human |
+| Super Resolution | [RealESRGAN](models/super_resolution.md) | Large-Small |
+| Object Detection | [YOLO](models/obj_det.md) | nano-s-large-extreme |
+| Emotion Prediction | [FerPlus](models/emotion.md) | ferplus8 |
+| Human Parsing | [HumanParsing](models/human_parsing.md) |human_attribute |
+| Denoise | [HINet](models/denoising.md) | denoise_320_480 |
+| Face Detection | [YuNet](models/face_det.md) | yunet_120_160 |
+| Style Transfer | [AnimeGAN](models/style_transfer.md) | animeGAN512 |
+| Image Classification | [ResNetV2](models/image_clf.md) | resnet152v2-resnet101v2-resnet50v2-resnet18v2 |
+| Human Portrait Segmentation | [MODNet](models/human_seg.md) | modnet_256 |
 
 ## 5. Deployment
 
@@ -73,3 +77,7 @@ It is extremely easy to use BiWAKO at application layer.
 !!! Tip "2. FastAPI Implementation"
     ![fastapi demo](img/fastapi_demo.png){align=left style="height:300px;width:450px"}
     Like the above example, you can build simple Backend API for inference on web server.
+
+!!! Tip "3. Video Prediction"
+    ![video demo](img/video_demo.png){align=left style="height:300px;width:450px"}
+    We also provides pre-defined video prediction API. [Read this for details](api/video_predictor.md)

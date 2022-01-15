@@ -23,17 +23,21 @@ theme:
 
 nav:
   - "Home": index.md
-  - "Human Parsing": human_parsing.md
-  - "Denoise Image": denoising.md
-  - "Style Transfer": style_transfer.md
-  - "Salient Object Segmenation": salient_det.md
-  - "Object Detection": obj_det.md
-  - "Emotion Recognition": emotion.md
-  - "Mono Depth Prediction": mono_depth.md
-  - "Super Resolution": super_resolution.md
-  - "Face Detection": face_det.md
-  - "Image Classification": image_clf.md
-  - "Human Portrait Segmentation": human_seg.md
+  - "Model":
+      - "Human Parsing": models/human_parsing.md
+      - "Denoise Image": models/denoising.md
+      - "Style Transfer": models/style_transfer.md
+      - "Salient Object Segmenation": models/salient_det.md
+      - "Object Detection": models/obj_det.md
+      - "Emotion Recognition": models/emotion.md
+      - "Mono Depth Prediction": models/mono_depth.md
+      - "Super Resolution": models/super_resolution.md
+      - "Face Detection": models/face_det.md
+      - "Image Classification": models/image_clf.md
+      - "Human Portrait Segmentation": models/human_seg.md
+  - "API":
+      - "APIs": api/index.md
+      - "Video Prediction": api/video_predictor.md
 
 plugins:
   - search
