@@ -71,7 +71,7 @@ class AnimeGAN(BaseInference):
         Returns:
             np.ndarray: Predicted image in original size.
         """
-        if image:
+        if not (image is None):
             h, w = self._read_image(image).shape[:2]
         elif input_size:
             h, w = input_size
