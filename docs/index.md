@@ -57,7 +57,7 @@ Click the link at the model column for futher documentation.
 | Mono Depth Prediction | [MiDAS](models/mono_depth.md) | mono_depth_small-mono_depth_large |
 | Salient Object Detection | [U2Net](models/salient_det.md) | Basic-Mobile-Human |
 | Super Resolution | [RealESRGAN](models/super_resolution.md) | Large-Small |
-| Object Detection | [YOLO](models/obj_det.md) | nano-s-large-extreme |
+| Object Detection | [YOLO2/YOLO](models/obj_det.md) | nano-s-large-extreme |
 | Emotion Prediction | [FerPlus](models/emotion.md) | ferplus8 |
 | Human Parsing | [HumanParsing](models/human_parsing.md) |human_attribute |
 | Denoise | [HINet](models/denoising.md) | denoise_320_480 |

@@ -38,9 +38,12 @@ class YOLO2(BaseInference):
 
     def __init__(self, model: str = "yolo_nano_simp") -> None:
         """Initialize YOLO2.
-
-        Args:
+        
+        Arguments:
             model (str, optional): Choice of the model. Also accept the path to the downloaded onnx file. If the model has not been downloaded yet, the file is downloaded automatically. Defaults to "yolo_nano_simp".
+            
+        Example:
+            >>> model = YOLO2("yolo_nano_simp")
         """
         self.model_path = maybe_download_weight(url_dict=WEIGHT_PATH, key=model)
         self.session = rt.InferenceSession(self.model_path)
@@ -137,6 +140,9 @@ class YOLO2(BaseInference):
 
         Returns:
             List[np.ndarray]: The prediction of the model in the format of `[scores, labels, boxes]`.
+            
+        Example:
+            >>> model.predict("path/to/image.jpg")
         """
         image = self._preprocess(self._read_image(image))
 
@@ -153,6 +159,9 @@ class YOLO2(BaseInference):
 
         Returns:
             np.ndarray: The image with the predicted bounding boxes in cv2 format.
+            
+        Example:
+            >>> model.render(model.predict("path/to/image.jpg"), "path/to/image.jpg")
         """
         image = self._read_image(image)
         prediction[2] = prediction[2].astype(int, copy=False)
