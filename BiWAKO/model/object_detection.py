@@ -1,4 +1,4 @@
-from typing import *  # type: ignore
+from typing import List, Tuple
 
 import torch
 import torchvision
