@@ -26,7 +26,22 @@ WEIGHT_PATH = {
 
 
 class YOLO2(BaseInference):
+    """Faster implementation of YOLO without any pre/post-processing.
+
+    Attributes:
+        model_path (str): The path to the onnx file. If automatic download is triggered, the file is downloaded to this path.
+        session (onnxruntime.InferenceSession): The session of the onnx model.
+        input_name (str): The name of the input node.
+        coco_label (List[str]): The coco mapping of the labels.
+        colors (Colors): Color palette written by Ultralytics at https://github.com/ultralytics/yolov5/blob/a3d5f1d3e36d8e023806da0f0c744eef02591c9b/utils/plots.py
+    """
+
     def __init__(self, model: str = "yolo_nano_simp") -> None:
+        """Initialize YOLO2.
+
+        Args:
+            model (str, optional): Choice of the model. Also accept the path to the downloaded onnx file. If the model has not been downloaded yet, the file is downloaded automatically. Defaults to "yolo_nano_simp".
+        """
         self.model_path = maybe_download_weight(url_dict=WEIGHT_PATH, key=model)
         self.session = rt.InferenceSession(self.model_path)
         self.input_name = self.session.get_inputs()[0].name
@@ -124,11 +139,21 @@ class YOLO2(BaseInference):
             List[np.ndarray]: The prediction of the model in the format of `[scores, labels, boxes]`.
         """
         image = self._preprocess(self._read_image(image))
+
         return self.session.run(None, {self.input_name: image})
 
     def render(
         self, prediction: List[np.ndarray], image: Image, **kwargs
     ) -> np.ndarray:
+        """Return the original image with the predicted bounding boxes.
+
+        Args:
+            prediction (List[np.ndarray]): The prediction of the model in the format of `[scores, labels, boxes]`.
+            image (Image): The image to be predicted. Accept both path and array in cv2 format.
+
+        Returns:
+            np.ndarray: The image with the predicted bounding boxes in cv2 format.
+        """
         image = self._read_image(image)
         prediction[2] = prediction[2].astype(int, copy=False)
 
@@ -153,5 +178,13 @@ class YOLO2(BaseInference):
         return image
 
     def _preprocess(self, image: np.ndarray) -> np.ndarray:
+        """Return the preprocessed image. Rest of processing is done in the model.
+
+        Args:
+            image (np.ndarray): The image to be preprocessed in cv2 format.
+
+        Returns:
+            np.ndarray: The preprocessed image.
+        """
         return np.transpose((image.astype(np.float32, copy=True) / 255.0), (2, 0, 1))
 
