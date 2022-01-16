@@ -1,4 +1,4 @@
-from typing import *  # type: ignore
+from typing import List, Tuple
 
 import torch
 import torchvision
@@ -166,8 +166,6 @@ class YOLO(BaseInference):
             np.ndarray: Image with predicted bounding boxes in cv2 format.
         """
         rtn = self._read_image(image)
-        rtn = cv2.cvtColor(rtn, cv2.COLOR_RGB2BGR)
-        rtn = cv2.cvtColor(rtn, cv2.COLOR_BGR2RGB)
 
         lw = max(round(sum(rtn.shape) / 2 * 0.003), 2)
         for pred in prediction:
