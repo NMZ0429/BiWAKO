@@ -1,5 +1,4 @@
 from typing import *  # type: ignore
-import time
 
 import torch
 import torchvision
@@ -15,6 +14,10 @@ WEIGHT_PATH = {
     "yolo_s": "https://github.com/NMZ0429/NaMAZU/releases/download/Checkpoint/yolo_s.onnx",
     "yolo_xl": "https://github.com/NMZ0429/NaMAZU/releases/download/Checkpoint/yolo_xl.onnx",
     "yolo_extreme": "https://github.com/NMZ0429/NaMAZU/releases/download/Checkpoint/yolo_extreme.onnx",
+    "yolo_nano_smp": "https://github.com/NMZ0429/NaMAZU/releases/download/Checkpoint/yolo_nano_smp.onnx",
+    "yolo_s_smp": "https://github.com/NMZ0429/NaMAZU/releases/download/Checkpoint/yolo_s_smp.onnx",
+    "yolo_xl_smp": "https://github.com/NMZ0429/NaMAZU/releases/download/Checkpoint/yolo_lx_smp.onnx",
+    "yolo_extreme_smp": "https://github.com/NMZ0429/NaMAZU/releases/download/Checkpoint/yolo_extreme_smp.onnx",
 }
 
 
@@ -44,7 +47,7 @@ class YOLO(BaseInference):
         self.session = rt.InferenceSession(self.model_path)
         self.input_name = self.session.get_inputs()[0].name
         self.output_name = self.session.get_outputs()[0].name
-        self.input_shape = (1280, 1280) if model == "yolo_extreme" else (640, 640)
+        self.input_shape = (1280, 1280) if ("yolo_extreme" in model) else (640, 640)
         self.coco_label = [
             "person",
             "bicycle",
