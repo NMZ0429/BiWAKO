@@ -1,7 +1,6 @@
 from .mono_depth import MiDAS
 from .segmentation import U2Net
 from .super_resolution import RealESRGAN
-from .object_detection import YOLO
 from .emotion_prediction import FerPlus
 from .human_attribute import HumanParsing
 from .denoise import HINet
@@ -12,17 +11,37 @@ from .human_seg import MODNet
 from .yolo_refined import YOLO2
 
 
-__all__ = [
-    "MiDAS",
-    "U2Net",
-    "RealESRGAN",
-    "YOLO",
-    "FerPlus",
-    "HumanParsing",
-    "HINet",
-    "YuNet",
-    "AnimeGAN",
-    "ResNet",
-    "MODNet",
-    "YOLO2",
-]
+# Exclude old yolo implementation if pytorch is not installed
+try:
+    import torch
+    from .object_detection import YOLO
+
+    __all__ = [
+        "MiDAS",
+        "U2Net",
+        "RealESRGAN",
+        "YOLO",
+        "FerPlus",
+        "HumanParsing",
+        "HINet",
+        "YuNet",
+        "AnimeGAN",
+        "ResNet",
+        "MODNet",
+        "YOLO2",
+    ]
+
+except ModuleNotFoundError:
+    __all__ = [
+        "MiDAS",
+        "U2Net",
+        "RealESRGAN",
+        "FerPlus",
+        "HumanParsing",
+        "HINet",
+        "YuNet",
+        "AnimeGAN",
+        "ResNet",
+        "MODNet",
+        "YOLO2",
+    ]
