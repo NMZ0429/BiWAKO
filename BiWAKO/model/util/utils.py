@@ -74,7 +74,6 @@ def maybe_download_weight(url_dict: Dict[str, str], key: str) -> str:
                 if len(os.path.split(key)) == 1
                 else "/".join(os.path.split(key)[:-1])
             )
-            print(save_path)
             model_path = download_weight(url_dict[splitted], save_path=save_path)
         else:
             raise ValueError(
