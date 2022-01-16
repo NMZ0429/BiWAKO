@@ -34,11 +34,16 @@ class YOLO(BaseInference):
         colors (Colors): Color palette written by Ultralytics at https://github.com/ultralytics/yolov5/blob/a3d5f1d3e36d8e023806da0f0c744eef02591c9b/utils/plots.py
     """
 
-    def __init__(self, model: str = "yolo_nano",) -> None:
+    def __init__(self, model: str = "yolo_nano") -> None:
         """Initialize the model.
 
         Args:
-            model (str): Model type to be used. Also accept path to the onnx file. If the model is not found, it will be downloaded automatically. Currently [yolo_nano, yolo_s, yolo_xl and yolo_extreme] are supported. Default is yolo_nano. Adding '_smp' to the model name will use the simplified model.
+            model (str): Model type to be used. Also accept path to the onnx file. If the model is not found, it will be downloaded automatically. Currently `[yolo_nano, yolo_s, yolo_xl and yolo_extreme]` are supported. Default is `yolo_nano`. Adding `_smp` to the model name will use the simplified model.
+            
+        Examples:
+            >>> model = YOLO("yolo_nano_smp")
+            downloading yolo_nano_smp.onnx to yolo_nano_smp.onnx
+            100%|██████████| 7.57M/7.57M [00:01<00:00, 6.89MB/s]
         """
         self.model_path = maybe_download_weight(WEIGHT_PATH, model)
         self.session = rt.InferenceSession(self.model_path)
