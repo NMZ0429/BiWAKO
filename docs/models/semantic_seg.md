@@ -9,6 +9,7 @@
             - __init__
             - predict
             - render
+            - _preprocess
     rendering:
         show_root_heading: false
         show_source: false

@@ -87,6 +87,21 @@ class FastSCNN(BaseInference):
         return input_img
 
     def _preprocess(self, image: np.ndarray) -> np.ndarray:
+        """Preprocess the image. Automatically called.
+        
+        Preprocess:
+            1. Resize to the input shape.
+            2. To RGB and normalize.
+            3. Add the mean and divide by the standard deviation.
+            4. Channel swap and float32.
+            5. Add batch dimension.
+
+        Args:
+            image (np.ndarray): Image to be preprocessed.
+
+        Returns:
+            np.ndarray: Preprocessed image.
+        """
         image = cv.resize(image, self.input_shape)
         image = cv.cvtColor(image, cv.COLOR_BGR2RGB) / 255.0
         image = (image - self.mean) / self.std
