@@ -165,6 +165,7 @@ class YOLO2(BaseInference):
         """
         image = self._read_image(image)
         prediction[2] = prediction[2].astype(int, copy=False)
+        lw = max(round(sum(image.shape) / 2 * 0.003), 2)
 
         for i in range(len(prediction[0])):
             label = prediction[1][i]
@@ -172,7 +173,12 @@ class YOLO2(BaseInference):
             c = self.colors(label, True)
 
             cv.rectangle(
-                img=image, pt1=(xyxy[0], xyxy[1]), pt2=(xyxy[2], xyxy[3]), color=c,
+                img=image,
+                pt1=(xyxy[0], xyxy[1]),
+                pt2=(xyxy[2], xyxy[3]),
+                color=c,
+                thickness=lw,
+                lineType=cv.LINE_AA,
             )
             cv.putText(
                 image,
