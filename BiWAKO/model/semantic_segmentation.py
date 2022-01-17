@@ -12,7 +12,25 @@ WEIGHT_PATH = {
 
 
 class FastSCNN(BaseInference):
+    """Semantic Segmentation
+
+    Attributes:
+        model_path (str): Path to the model file.
+        model (onnxruntime.InferenceSession): Inference session.
+        input_shape (tuple): Input shape of the model. Set to (384, 384) for fast_scnn384 and (1344, 768) for fast_scnn7681344.
+        input_name (str): Name of the input node.
+        output_name (str): Name of the output node.
+        mean (np.ndarray): Mean value of the dataset.
+        std (np.ndarray): Standard deviation of the dataset.
+        c_map: Color map for the semantic segmentation 19 object classes.
+    """
+
     def __init__(self, model: str = "fast_scnn384", **kwargs) -> None:
+        """Initialize FastSCNN model.
+
+        Args:
+            model (str, optional): Choice of model. Accept model name or path to the downloaded onnx file. If onnx file has not been downloaded, it will be downloaded automatically. Currently avaiable models are `[fast_scnn384, fast_scnn7681344]`. Defaults to "fast_scnn384".
+        """
         self.model_path = maybe_download_weight(WEIGHT_PATH, model)
         self.model = InferenceSession(self.model_path)
         self.input_shape = (384, 384) if "384" in model else (1344, 768)
@@ -23,6 +41,14 @@ class FastSCNN(BaseInference):
         self.c_map = self.__get_color_map_list(19)
 
     def predict(self, image: Image) -> np.ndarray:
+        """Return the prediction map. The last channel has 19 classes.
+
+        Args:
+            image (Image): Image to be predicted. Accept path to the image or cv2 image.
+
+        Returns:
+            np.ndarray: Prediction map in the shape of (height, width, 19).
+        """
         image = self._read_image(image)
         dsize = (image.shape[1], image.shape[0])
         image = self._preprocess(image)
@@ -33,6 +59,15 @@ class FastSCNN(BaseInference):
         return np.argmax(prediction, axis=2)
 
     def render(self, prediction: np.ndarray, image: Image, **kwargs) -> np.ndarray:
+        """Apply the prediction map to the image.
+
+        Args:
+            prediction (np.ndarray): Prediction map retuned by `predict`.
+            image (Image): Image to be rendered. Accept path to the image or cv2 image.
+
+        Returns:
+            np.ndarray: Rendered image.
+        """
         input_img = self._read_image(image)
         for i in range(0, 19):
             mask = np.where(prediction == i, 0, 1)
