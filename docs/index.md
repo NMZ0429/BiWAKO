@@ -65,6 +65,7 @@ Click the link at the model column for futher documentation.
 | Style Transfer | [AnimeGAN](models/style_transfer.md) | animeGAN512 |
 | Image Classification | [ResNetV2](models/image_clf.md) | resnet152v2-resnet101v2-resnet50v2-resnet18v2 |
 | Human Portrait Segmentation | [MODNet](models/human_seg.md) | modnet_256 |
+| Semantic Segmentation | [FastSCNN](models/semantic_seg.md) | fast_scnn384-fast_scnn7681344 |
 
 ## 5. Deployment
 
