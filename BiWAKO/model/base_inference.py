@@ -8,6 +8,10 @@ from .util.utils import Image
 
 class BaseInference(ABC):
     @abstractmethod
+    def __init__(self, model: str, **kwargs) -> None:
+        pass
+
+    @abstractmethod
     def predict(self, image: Image) -> np.ndarray:
         pass
 

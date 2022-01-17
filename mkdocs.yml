@@ -35,6 +35,7 @@ nav:
       - "Face Detection": models/face_det.md
       - "Image Classification": models/image_clf.md
       - "Human Portrait Segmentation": models/human_seg.md
+      - "Semantic Segmentation": models/semantic_seg.md
   - "API":
       - "APIs": api/index.md
       - "Video Prediction": api/video_predictor.md

@@ -9,6 +9,7 @@ from .anime_gan import AnimeGAN
 from .image_classification import ResNet
 from .human_seg import MODNet
 from .yolo_refined import YOLO2
+from .semantic_segmentation import FastSCNN
 
 
 # Exclude old yolo implementation if pytorch is not installed
@@ -29,6 +30,7 @@ try:
         "ResNet",
         "MODNet",
         "YOLO2",
+        "FastSCNN",
     ]
 
 except ModuleNotFoundError:
@@ -44,4 +46,5 @@ except ModuleNotFoundError:
         "ResNet",
         "MODNet",
         "YOLO2",
+        "FastSCNN",
     ]
