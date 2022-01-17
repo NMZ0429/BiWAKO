@@ -1,4 +1,4 @@
-name: Linting_Format
+name: ON_PR_FORMAT_CHECK
 on:
   pull_request:
     branches: [main]
