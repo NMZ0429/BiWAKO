@@ -84,7 +84,7 @@ class MODNet(BaseInference):
 
     def _preprocess(self, image: np.ndarray) -> np.ndarray:
         """Preprocess image for inference. This is automatically called by predict().
-        
+
         Preprocess:
             1. Resize image to the same size as the model input.
             2. Normalize image to `[-1, 1]` with mean and std of 0.5.

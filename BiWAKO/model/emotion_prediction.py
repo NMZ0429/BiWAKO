@@ -12,7 +12,7 @@ WEIGHT_PATH = {
 
 class FerPlus(BaseInference):
     """Emotion prediction model.
-    
+
     The model requires the input image to be trimmed around the face.
     Use YuNet to detect the face and crop the image around it.
 
@@ -21,7 +21,7 @@ class FerPlus(BaseInference):
         session (onnxruntime.InferenceSession): The inference session.
         input_name (str): The name of the input node.
         output_name (str): The name of the output node.
-        emotion_table (list): A list of emotions trained.        
+        emotion_table (list): A list of emotions trained.
     """
 
     def __init__(self, model: str = "ferplus8"):
@@ -64,7 +64,7 @@ class FerPlus(BaseInference):
 
     def render(self, prediction: np.ndarray, image: Image) -> np.ndarray:
         """Return the list of emotions and their confidences in string.
-        
+
         This method is currently under the development.
 
         Args:

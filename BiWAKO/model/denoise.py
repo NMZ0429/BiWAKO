@@ -102,4 +102,3 @@ class HINet(BaseInference):
         img /= 255.0
 
         return img
-

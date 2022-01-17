@@ -10,11 +10,11 @@ Image = Union[str, np.ndarray]
 
 def _download_file(url: str, filename: str) -> str:
     """Download a file from url to filename.
-    
+
     Args:
         url (str): url to download file
         filename (str): filename to save the file
-    
+
     Returns:
         str: path to the saved file
     """

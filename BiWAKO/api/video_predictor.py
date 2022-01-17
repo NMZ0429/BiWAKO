@@ -15,7 +15,7 @@ class VideoPredictor:
 
         Args:
             model (BaseInference): BiWAKO model instance.
-        
+
         Examples:
             >>> video_predictor = VideoPredictor(model=BiWAKO.MiDAS())
         """
@@ -27,7 +27,7 @@ class VideoPredictor:
         Args:
             video_path (str): Path to the video to predict.
             title (str, optional): Title of the output mp4 file. Defaults to use the model name.
-            
+
         Examples:
             >>> video_predictor.run(video_path="video.mp4")
         """
@@ -37,7 +37,7 @@ class VideoPredictor:
         self, video_path: str, model: BaseInference, title: Optional[str] = None
     ) -> None:
         """Load video and predict all frames by model. The result is saved at the same directory as video_path.
-        
+
         Return the width, height and fps of the video.
 
         Args:
@@ -82,4 +82,3 @@ class VideoPredictor:
         for p in preds:
             p.unlink()
         Path(predictions).rmdir()
-

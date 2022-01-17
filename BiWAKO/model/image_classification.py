@@ -30,7 +30,7 @@ class ResNet(BaseInference):
 
     def __init__(self, model: str = "resnet18v2") -> None:
         """Initialize ResNet
-        
+
         Available models:
                 "resnet152v2"
                 "resnet101v2"

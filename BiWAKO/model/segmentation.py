@@ -21,7 +21,7 @@ __all__ = ["U2Net"]
 
 class U2Net(BaseInference):
     """Salient object segmentation model.
-    
+
     Attributes:
         IS (onnxruntime.InferenceSession): Inference session.
         input_name (str): Input node name.
@@ -50,10 +50,10 @@ class U2Net(BaseInference):
 
     def predict(self, image: Image) -> np.ndarray:
         """Return the predicted mask of the image.
-        
+
         Args:
             image (Union[str, np.ndarray]): Image in cv2 format or path to image.
-        
+
         Returns:
             np.ndarray: Predicted mask in cv2 format.
         """
@@ -79,7 +79,7 @@ class U2Net(BaseInference):
         Args:
             prediction (np.ndarray): Predicted mask in cv2 format.
             image (Union[str, np.ndarray]): Image in cv2 format or path to image.
-        
+
         Returns:
             np.ndarray: Rendered original image in cv2 format.
         """
@@ -101,7 +101,7 @@ class U2Net(BaseInference):
 
         Args:
             img (np.ndarray): image in cv2 format.
-        
+
         Returns:
             np.ndarray: Preprocessed image in cv2 format.
         """
@@ -134,4 +134,3 @@ class U2Net(BaseInference):
         onnx_result = onnx_result.astype("uint8")
 
         return onnx_result
-
