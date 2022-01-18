@@ -1,21 +1,22 @@
 from setuptools import setup
 import setuptools
-import BiWAKO
 
-DESCRIPTION = "BiWAKO: Pretty Usefull Library"
+
+def _requires_from_file(filename):
+    return open(filename).read().splitlines()
+
+
+DESCRIPTION = "BiWAKO: The largest freshwater late in Japan"
 NAME = "BiWAKO"
 AUTHOR = "NaMAZU Team"
 AUTHOR_EMAIL = "bunbun@icloud.com"
 URL = "https://github.com/NMZ0429/BiWAKO"
-LICENSE = "MIT"
+LICENSE = "GPL-3.0"
 DOWNLOAD_URL = "https://github.com/NMZ0429/BiWAKO"
-VERSION = BiWAKO.__version__
+VERSION = "0.0.2"
 PYTHON_REQUIRES = ">=3.7.0"
 
-INSTALL_REQUIRES = [
-    "opencv-python",
-    "onnxruntime",
-]
+INSTALL_REQUIRES = _requires_from_file("requirements.txt")
 
 PACKAGES = setuptools.find_packages()
 CLASSIFIERS = [
