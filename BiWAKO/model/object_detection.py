@@ -231,9 +231,11 @@ class YOLO(BaseInference):
         ), f"Invalid IoU {iou_thres}, valid values are between 0.0 and 1.0"
 
         # Settings
-        min_wh, max_wh = 2, 4096  # (pixels) minimum and maximum box width and height
+        _, max_wh = (
+            2,
+            4096,
+        )  # (pixels) minimum and maximum box width and height
         max_nms = 30000  # maximum number of boxes into torchvision.ops.nms()
-        time_limit = 10.0  # seconds to quit after
         redundant = True  # require redundant detections
         multi_label &= nc > 1  # multiple labels per box (adds 0.5ms/img)
         merge = False  # use merge-NMS
@@ -288,7 +290,10 @@ class YOLO(BaseInference):
 
             # Batched NMS
             c = x[:, 5:6] * (0 if agnostic else max_wh)  # classes
-            boxes, scores = x[:, :4] + c, x[:, 4]  # boxes (offset by class), scores
+            boxes, scores = (
+                x[:, :4] + c,
+                x[:, 4],
+            )  # boxes (offset by class), scores
             i = torchvision.ops.nms(boxes, scores, iou_thres)  # NMS
             if i.shape[0] > max_det:  # limit detections
                 i = i[:max_det]
@@ -372,7 +377,10 @@ class YOLO(BaseInference):
         # Compute padding
         ratio = r, r  # width, height ratios
         new_unpad = int(round(shape[1] * r)), int(round(shape[0] * r))
-        dw, dh = new_shape[1] - new_unpad[0], new_shape[0] - new_unpad[1]  # wh padding
+        dw, dh = (
+            new_shape[1] - new_unpad[0],
+            new_shape[0] - new_unpad[1],
+        )  # wh padding
         if auto:  # minimum rectangle
             dw, dh = np.mod(dw, stride), np.mod(dh, stride)  # wh padding
         elif scaleFill:  # stretch

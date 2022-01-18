@@ -24,9 +24,6 @@ jobs:
       - name: Test with black
         run: |
           black --check ./BiWAKO
-      - name: Test with flake8
-        run: |
-          flake8 ./BiWAKO --statistics --count --show-source
       - name: Run isort
         run: |
           isort ./BiWAKO
