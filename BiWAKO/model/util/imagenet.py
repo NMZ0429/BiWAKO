@@ -1001,4 +1001,3 @@ def get_imagenet_label():
         998: "ear, spike, capitulum",
         999: "toilet tissue, toilet paper, bathroom tissue",
     }
-

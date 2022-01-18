@@ -65,7 +65,7 @@ class YuNet(BaseInference):
 
     def predict(self, image: Image) -> Tuple[list, list, list]:
         """Return the face detection result.
-        
+
         The prediction result is a tuple of three lists.
         First list is bounding boxes, second list is landmarks, and third list is scores.
         For example, accesing 2nd parson's bounding box is done by prediction`[1][0]`, and prediction`[1][1]` is landmarks of 2nd person.

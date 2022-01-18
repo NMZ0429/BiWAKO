@@ -1,19 +1,20 @@
 import cv2
 
-from BiWAKO import YOLO, HumanParsing, MiDAS, U2Net, YuNet, ResNet, MODNet, YOLO2
+import BiWAKO
 
 
 # Uncomment the model you want to use and comment out the other models
 
-# model = MiDAS("weights/mono_depth_small")
-# model = YOLO("weights/yolo_nano")
-# model = U2Net("mobile")
-# model = HumanParsing("human_attribute")
-# model = YuNet()
-# model = ResNet("resnet18v2")
-# model = MODNet("modnet_256")
+# model = BiWAKO.MiDAS("weights/mono_depth_small")
+# model = BiWAKO.YOLO("weights/yolo_s")  # type: ignore
+# model = BiWAKO.U2Net("mobile")
+# model = BiWAKO.HumanParsing("human_attribute")
+# model = BiWAKO.YuNet()
+# model = BiWAKO.ResNet("resnet18v2")
+# model = BiWAKO.MODNet("modnet_256")
+# model = BiWAKO.YOLO2("yolo_s_simp")
+model = BiWAKO.FastSCNN("weights/fast_scnn7681344")
 
-model = YOLO2()
 
 cap = cv2.VideoCapture(0)
 

@@ -10,11 +10,11 @@ Image = Union[str, np.ndarray]
 
 def _download_file(url: str, filename: str) -> str:
     """Download a file from url to filename.
-    
+
     Args:
         url (str): url to download file
         filename (str): filename to save the file
-    
+
     Returns:
         str: path to the saved file
     """
@@ -164,5 +164,6 @@ class Colors:
         return (c[2], c[1], c[0]) if bgr else c
 
     @staticmethod
-    def hex2rgb(h):  # rgb order (PIL)
+    def hex2rgb(h):
+        # rgb order (PIL)
         return tuple(int(h[1 + i : 1 + i + 2], 16) for i in (0, 2, 4))

@@ -15,7 +15,7 @@ WEIGHT_PATH = {
 
 class RealESRGAN(BaseInference):
     """Super Resolution model.
-    
+
     Attributes:
         model_path (str): Path to the model. If automatic download is enabled, it will be downloaded to this path.
         session (rt.InferenceSession): ONNX Runtime session.

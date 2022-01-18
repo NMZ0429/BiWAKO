@@ -96,4 +96,3 @@ class AnimeGAN(BaseInference):
         ani = cv.cvtColor(ani, cv.COLOR_RGB2BGR)
 
         return ani
-

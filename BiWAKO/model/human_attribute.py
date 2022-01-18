@@ -49,7 +49,7 @@ class HumanParsing(BaseInference):
 
     def predict(self, image: Image) -> np.ndarray:
         """Return the prediction on the image.
-        
+
         Args:
             image (Image): image to be processed in str or cv2 format.
 
@@ -78,7 +78,13 @@ class HumanParsing(BaseInference):
         # add text to image
         for i, l in enumerate(label):
             cv.putText(
-                img, l, (10, 30 + i * 30), cv.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2,
+                img,
+                l,
+                (10, 30 + i * 30),
+                cv.FONT_HERSHEY_SIMPLEX,
+                1,
+                (0, 0, 255),
+                2,
             )
 
         return img

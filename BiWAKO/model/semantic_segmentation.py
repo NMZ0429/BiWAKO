@@ -88,7 +88,7 @@ class FastSCNN(BaseInference):
 
     def _preprocess(self, image: np.ndarray) -> np.ndarray:
         """Preprocess the image. Automatically called.
-        
+
         Preprocess:
             1. Resize to the input shape.
             2. To RGB and normalize.

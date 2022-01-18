@@ -50,7 +50,7 @@ class MiDAS(BaseInference):
 
         Args:
             img (Union[str, np.ndarray]): image path or numpy array in cv2 format
-        
+
         Returns:
             np.ndarray: predicted depthmap
         """
@@ -93,7 +93,7 @@ class MiDAS(BaseInference):
         2. Normalize.
         3. Add batch dimension.
         4. Convert to float32.
-        
+
         Args:
             img (np.ndarray): image in cv2 format
         """
