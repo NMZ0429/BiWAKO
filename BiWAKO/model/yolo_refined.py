@@ -22,6 +22,10 @@ WEIGHT_PATH = {
     "yolo_m6_simp": "https://github.com/NMZ0429/Weights/releases/download/Temp/yolo_m6_simp.onnx",
     "yolo_l": "https://github.com/NMZ0429/Weights/releases/download/Temp/yolo_l.onnx",
     "yolo_l_simp": "https://github.com/NMZ0429/Weights/releases/download/Temp/yolo_l_simp.onnx",
+    "yolo_x": "https://github.com/NMZ0429/Weights/releases/download/Temp/yolo_x.onnx",
+    "yolo_x6": "https://github.com/NMZ0429/Weights/releases/download/Temp/yolo_x6.onnx",
+    "yolo_x_simp": "https://github.com/NMZ0429/Weights/releases/download/Temp/yolo_x_simp.onnx",
+    "yolo_x6_simp": "https://github.com/NMZ0429/Weights/releases/download/Temp/yolo_x6_simp.onnx",
 }
 
 
