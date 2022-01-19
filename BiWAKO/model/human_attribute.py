@@ -1,5 +1,3 @@
-from typing import Literal
-
 import cv2 as cv
 import numpy as np
 from onnxruntime import InferenceSession
@@ -15,6 +13,16 @@ WEIGHT_PATH = {
 class HumanParsing(BaseInference):
     """Basic ResNet50 model for parsing attributes of pedestrians
 
+    Model:
+        This model is trained on the pedestrian dataset with following multi-label classification task:
+        - "is_male",
+        - "has_bag",
+        - "has_hat",
+        - "has_longsleeves",
+        - "has_longpants",
+        - "has_longhair",
+        - "has_coat_jacket",
+
     Attributes:
         model (onnxruntime.InferenceSession): ONNXRuntime instance.
         conf_thresh (float): confidence threshold for prediction.
@@ -26,9 +34,15 @@ class HumanParsing(BaseInference):
 
     def __init__(
         self,
-        model: Literal["human_attribute"] = "human_attribute",
+        model: str = "human_attribute",
         conf_thresh: float = 0.4,
     ) -> None:
+        """Initialize HumanParsing
+
+        Args:
+            model (str, optional): model name or path to the onnx file. Defaults to "human_attribute".
+            conf_thresh (float, optional): confidence threshold. Defaults to 0.4.
+        """
         model_path = maybe_download_weight(WEIGHT_PATH, model)
         self.conf_thresh = conf_thresh
         self.model = InferenceSession(model_path)

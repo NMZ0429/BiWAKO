@@ -1,5 +1,4 @@
 import copy
-from typing import Literal
 
 import cv2 as cv
 import numpy as np
@@ -31,13 +30,12 @@ class U2Net(BaseInference):
         std (List[float]): Standard deviation. Set to [0.229, 0.224, 0.225].
     """
 
-    def __init__(
-        self, model: Literal["basic", "mobile", "human_seg", "portrait"]
-    ) -> None:
+    def __init__(self, model: str = "mobile") -> None:
         """U2Net Inference class.
 
         Args:
-            model (Literal["basic", "mobile", "human_seg", "portrait"]): Model name. If model has not been downloaded, it will be downloaded automatically.
+            model (str, optional): Model name or downloaded onnx file. Accept one of `["basic", "mobile", "human_seg", "portrait"]`.
+                                    If model has not been downloaded, it will be downloaded automatically.
         """
         model_path = maybe_download_weight(WEIGHT_PATH, model)
 

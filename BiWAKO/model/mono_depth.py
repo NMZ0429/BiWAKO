@@ -1,4 +1,4 @@
-from typing import Literal, Union
+from typing import Union
 
 import cv2
 import numpy as np
@@ -20,6 +20,11 @@ __all__ = ["MiDAS"]
 class MiDAS(BaseInference):
     """MonoDepth prediction model.
 
+    Model:
+        This is a pretrained MiDASv1 model. Currently available models are:
+            - mono_depth_small
+            - mono_depth_large
+
     Attributes:
         model_path (str): Path to model file. If automatic download is triggered, this path is used to save the model.
         session (onnxruntime.InferenceSession): Inference session.
@@ -32,13 +37,13 @@ class MiDAS(BaseInference):
 
     def __init__(
         self,
-        model: Literal["mono_depth_small", "mono_depth_large"] = "mono_depth_small",
+        model: str = "mono_depth_small",
         show_exp: bool = False,
     ) -> None:
         """Initialize model.
 
         Args:
-            model (Literal["mono_depth_small", "mono_depth_large"], optional): Model name. Defaults to "mono_depth_small". Onnx file is downloaded automatically.
+            model (str, optional): Model name or path to the downloaded onnx file. Defaults to "mono_depth_small". Onnx file is downloaded automatically.
             show_exp (bool, optional): True to display expected input size. Defaults to False.
         """
         self.model_path = maybe_download_weight(WEIGHT_PATH, model)

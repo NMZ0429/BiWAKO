@@ -1,5 +1,3 @@
-from typing import Literal
-
 import cv2 as cv
 import numpy as np
 import onnxruntime as rt
@@ -24,13 +22,13 @@ class RealESRGAN(BaseInference):
         output_name (str): Name of the output node.
     """
 
-    def __init__(
-        self, model: Literal["super_resolution4864", "super_resolution6464"]
-    ) -> None:
+    def __init__(self, model: str = "super_resolution4864") -> None:
         """Initialize RealESRGAN.
 
         Args:
-            model (Literal["super_resolution4864", "super_resolution6464"]): Model name. If model has not been downloaded, it will be downloaded automatically. Currently supports ["super_resolution4864", "super_resolution6464"].
+            model (str, optional): Model name or path to the downloaded onnx file.
+                                    If model has not been downloaded, it will be downloaded automatically.
+                                    Currently supports ["super_resolution4864", "super_resolution6464"].
         """
         self.model_path = maybe_download_weight(WEIGHT_PATH, model)
         self.session = rt.InferenceSession(self.model_path)

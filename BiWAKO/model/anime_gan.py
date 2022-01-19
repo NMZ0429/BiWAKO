@@ -1,4 +1,4 @@
-from typing import Literal, Tuple
+from typing import Tuple
 
 import cv2 as cv
 import numpy as np
@@ -23,11 +23,11 @@ class AnimeGAN(BaseInference):
         input_size (int): Size of input image. Set to 512.
     """
 
-    def __init__(self, model: Literal["animeGAN512"] = "animeGAN512") -> None:
+    def __init__(self, model: str = "animeGAN512") -> None:
         """Initialize AnimeGAN model.
 
         Args:
-            model (Literal[, optional): Either path to the downloaded model or name of the model to trigger automatic download. Defaults to "animeGAN512".
+            model (str, optional): Either path to the downloaded model or name of the model to trigger automatic download. Defaults to "animeGAN512".
         """
         self.model_path = maybe_download_weight(WEIGHT_PATH, model)
         self.model = InferenceSession(self.model_path)

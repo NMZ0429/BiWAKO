@@ -1,5 +1,5 @@
 from itertools import product
-from typing import List, Literal, Tuple
+from typing import List, Tuple
 
 import cv2 as cv
 import numpy as np
@@ -33,7 +33,7 @@ class YuNet(BaseInference):
 
     def __init__(
         self,
-        model: Literal["yunet_120_160"] = "yunet_120_160",
+        model: str = "yunet_120_160",
         input_shape=[160, 120],
         conf_th=0.6,
         nms_th=0.3,
@@ -43,7 +43,7 @@ class YuNet(BaseInference):
         """Initialize YuNet.
 
         Args:
-            model (Literal["yunet_120_160"] , optional): Choice of model or path to onnx file. Defaults to yunet_120_160.
+            model (str): model name. Set to "yunet_120_160" by default.
             input_shape (list, optional): Input image shape. Defaults to [160, 120].
             conf_th (float, optional): Confidence level threshold. Defaults to 0.6.
             nms_th (float, optional): NMS threshold. Defaults to 0.3.
