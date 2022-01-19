@@ -4,6 +4,7 @@
     handler: python
     selection:
         members:
+            - __init__
             - predict
             - render
     rendering:
