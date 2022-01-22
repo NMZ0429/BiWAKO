@@ -11,9 +11,14 @@ app = FastAPI()
 
 AVAILABLE_MODELS = BiWAKO.available_models
 
-# get all available models
+
 @app.get("/models")
 def get_models() -> Dict[str, List[str]]:
+    """Return the list of available models.
+
+    Returns:
+        Dict[str, List[str]]: A dictionary of the list of available versions.
+    """
     return {"models": AVAILABLE_MODELS}
 
 
@@ -25,10 +30,15 @@ async def post_predict(
 ) -> Dict[str, str]:
     """Request prediction for a list of files.
 
+    Prediction is done in a background task. Results are saved to the directory "results".
+
     Args:
         files (List[UploadFile], optional): List of files to predict. Defaults to File(...).
         model_choise (Optional[str], optional): Model name. Defaults to Query(default="U2Net", description="Model name").
         backgroud_tasks (Optional[BackgroundTasks], optional): Background tasks. Defaults to None.
+
+    Returns:
+        Dict[str, str]: Message indicating the number of files processed.
     """
     if model_choise not in AVAILABLE_MODELS:
         return {"error": f"Model {model_choise} is not available."}
@@ -56,8 +66,12 @@ async def post_predict(
 
 @app.post("/delete")
 async def request_delete() -> Dict[str, str]:
+    """Delete all prediction results.
+
+    Returns:
+        Dict[str, str]: message json indicating success.
+    """
     save_path = Path("./results")
-    # delete save path if exists
     if save_path.exists():
         shutil.rmtree(save_path)
         return {"message": "Prediction results deleted"}
@@ -66,7 +80,12 @@ async def request_delete() -> Dict[str, str]:
 
 
 @app.get("/result")
-async def get_result() -> Dict[str, np.ndarray]:
+async def get_result() -> Dict[str, str]:
+    """Return the prediction result.
+
+    Returns:
+        Dict[str, str]: json of prediction index and its path.
+    """
     save_path = Path("./results")
     results = [str(p) for p in save_path.glob("**/*")]
 
