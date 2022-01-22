@@ -1,8 +1,10 @@
+import sys
 from argparse import ArgumentParser
 from typing import List
 
 import httpx
 import streamlit as st
+from zmq import TYPE
 
 st.markdown(
     """
@@ -12,8 +14,13 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-parser = ArgumentParser()
-parser.add_argument("--inference_server", default="8000")
+
+parser = ArgumentParser("BiWAKO Demo Web App")
+parser.add_argument(
+    "-s", "--server", help="address of inference server", default="8000", type=str
+)
+
+
 args = parser.parse_args()
 
 
@@ -26,7 +33,7 @@ def get_available_models() -> List[str]:
     return tmp["models"]
 
 
-BACKEND_HOST = "http://localhost:" + args.inference_server
+BACKEND_HOST = "http://localhost:" + args.server
 MODELS = get_available_models()
 
 

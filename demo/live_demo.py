@@ -16,8 +16,7 @@ model = BiWAKO.MiDAS("weights/mono_depth_small")
 # model = BiWAKO.FastSCNN("weights/fast_scnn7681344")
 
 # model = BiWAKO.YOLO2("yolo_s_simp")
-# model = BiWAKO.YOLO2("yolov5s_sim25.onnx")
-# model = BiWAKO.YOLO("weights/yolo_s")  # type: ignore
+# model = BiWAKO.YOLO("weights/yolo_s")
 
 cap = cv2.VideoCapture(0)
 
