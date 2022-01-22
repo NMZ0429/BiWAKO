@@ -39,6 +39,8 @@ nav:
   - "API":
       - "APIs": api/index.md
       - "Video Prediction": api/video_predictor.md
+  - "Demo":
+      - "Use Demo Scripts": demo/index.md
 
 plugins:
   - search
