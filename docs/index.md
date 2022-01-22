@@ -78,6 +78,7 @@ It is extremely easy to use BiWAKO at application layer.
 !!! Tip "2. FastAPI Implementation"
     ![fastapi demo](img/fastapi_demo.png){align=left style="height:300px;width:450px"}
     Like the above example, you can build simple Backend API for inference on web server.
+    We have prepared sample deployment of the library with FastAPI.[Read this for details](demo/index.md).
 
 !!! Tip "3. Video Prediction"
     ![video demo](img/video_demo.png){align=left style="height:300px;width:450px"}
