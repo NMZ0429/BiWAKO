@@ -10,7 +10,7 @@ from .image_classification import ResNet
 from .human_seg import MODNet
 from .yolo_refined import YOLO2
 from .semantic_segmentation import FastSCNN
-from .swim_net import SUIMNet
+from .suim_net import SUIMNet
 
 
 # Exclude old yolo implementation if pytorch is not installed
