@@ -6,7 +6,7 @@ import onnxruntime as rt
 
 
 from .base_inference import BaseInference
-from .util.utils import Colors, Image, maybe_download_weight
+from .util.utils import Image, maybe_download_weight
 
 
 WEIGHT_PATH = {
