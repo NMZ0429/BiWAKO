@@ -1,5 +1,3 @@
-from typing import List
-
 import cv2 as cv
 import numpy as np
 import onnxruntime as rt
@@ -18,9 +16,27 @@ WEIGHT_PATH = {
 
 
 class SUIMNet(BaseInference):
+    """Semantic segmentation model for diver's view dataset.
+
+    Attributes:
+        model_path (str): Path to the onnx file. If automatic download is triggered, it is downloaded to this path.
+        session (onnxruntime.InferenceSession): Inference session.
+        h (int): Height of the input image.
+        w (int): Width of the input image.
+        input_name (str): Name of the input node.
+        output_name (str): Name of the output node.
+        c_map: Color map for the segmentation.
+    """
+
     def __init__(
         self, model: str = "suim_rsb_72128", num_classes: int = 5, **kwargs
     ) -> None:
+        """Initialize the SUIMNet model.
+
+        Args:
+            model (str, optional): Choice of the model or path to the downloaded onnx file. If the model hasn't been downloaded, it is automatically downloaded to this path. Defaults to "suim_rsb_72128".
+            num_classes (int, optional): Number of classes to segmentate. Defaults to 5.
+        """
         self.model_path = maybe_download_weight(WEIGHT_PATH, model)
         self.session = rt.InferenceSession(self.model_path)
         self.h, self.w = self.session.get_inputs()[0].shape[2:4]
@@ -29,19 +45,34 @@ class SUIMNet(BaseInference):
         self.c_map = self._get_color_map_list(num_classes)
 
     def predict(self, image: Image) -> np.ndarray:
+        """Return the segmentation map of the image.
+
+        Args:
+            image (Image): Image to segmentate. Accept path to the image or cv2 image.
+
+        Returns:
+            np.ndarray: Segmentation map of shape (h, w, num_classes). Each element is a confidence of the class.
+        """
         image = self._read_image(image)
         h, w = image.shape[:2]
         image = self._preprocess(image)
         pred = self.session.run([self.output_name], {self.input_name: image})[0]
         pred = np.squeeze(pred)
-        print(pred.shape)
         pred = cv.resize(pred, (w, h))
-        print(pred.shape)
         pred = pred.transpose(2, 0, 1)
 
         return pred
 
     def render(self, prediction: np.ndarray, image: Image, **kwargs) -> np.ndarray:
+        """Apply the segmentation map to the image.
+
+        Args:
+            prediction (np.ndarray): Segmentation map of shape (h, w, num_classes) returned by predict().
+            image (Image): Input image. Accept path to the image or cv2 image.
+
+        Returns:
+            np.ndarray: Rendered image in cv2 format.
+        """
         img = self._read_image(image)
 
         for i, m in enumerate(prediction):
