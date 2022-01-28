@@ -66,6 +66,8 @@ Click the link at the model column for futher documentation.
 | Image Classification | [ResNetV2](models/image_clf.md) | resnet152v2-resnet101v2-resnet50v2-resnet18v2 |
 | Human Portrait Segmentation | [MODNet](models/human_seg.md) | modnet_256 |
 | Semantic Segmentation | [FastSCNN](models/semantic_seg.md) | fast_scnn384-fast_scnn7681344 |
+| Diver's View Segmentation | [SUIMNet](models/suim_net.md) | suim_net_3248-suim_rsb_72128-suim_vgg_25632-suim_vgg_72128 |
+
 
 ## 5. Deployment
 
