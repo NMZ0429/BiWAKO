@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="utils/biwako.png" width="450">
+<img src="docs/img/biwako.png" width="450">
 
 ### The home of moduled onnx models
 
@@ -92,15 +92,21 @@ Click the link at the model column for futher documentation.
 
 It is extremely easy to use BiWAKO at application layer.
 
-!!! Tip "1. Real Time Prediction"
-    ![live demo](docs/img/live_demo.png){ align=left style="height:300px;width:450px"}
-    Any model can be used in the same way to run real-time inference.
+### 1. Real Time Prediction
 
-!!! Tip "2. FastAPI Implementation"
-    ![fastapi demo](docs/img/fastapi_demo.png){align=left style="height:300px;width:450px"}
-    Like the above example, you can build simple Backend API for inference on web server.
-    We have prepared sample deployment of the library with FastAPI.[Read this for details](demo/index.md).
+Any model can be used in the same way to run real-time inference.
 
-!!! Tip "3. Video Prediction"
-    ![video demo](docs/img/video_demo.png){align=left style="height:300px;width:450px"}
-    We also provides pre-defined video prediction API. [Read this for details](api/video_predictor.md)
+<img src="docs/img/live_demo.png" width="450">
+
+### 2. FastAPI Implementation
+
+Like the above example, you can build simple Backend API for inference on web server.
+We have prepared sample deployment of the library with FastAPI.[Read this for details](demo/index.md).
+
+<img src="docs/img/fastapi_demo.png" width="450">
+
+### 3. Video Prediction
+
+We also provides pre-defined video prediction API. [Read this for details](api/video_predictor.md)
+
+<img src="docs/img/video_demo.png" width="450">
