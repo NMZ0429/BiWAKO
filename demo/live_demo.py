@@ -14,7 +14,7 @@ model = BiWAKO.MiDAS("weights/mono_depth_small")
 # model = BiWAKO.ResNet("resnet18v2")
 # model = BiWAKO.MODNet("modnet_256")
 # model = BiWAKO.FastSCNN("weights/fast_scnn7681344")
-
+# model = BiWAKO.SUIMNet()
 # model = BiWAKO.YOLO2("yolo_s_simp")
 # model = BiWAKO.YOLO("weights/yolo_s")
 
