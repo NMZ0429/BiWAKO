@@ -24,15 +24,15 @@ theme:
 nav:
   - "Home": index.md
   - "Model":
-      - "Human Parsing": models/human_parsing.md
+      - "Mono Depth Prediction": models/mono_depth.md
       - "Denoise Image": models/denoising.md
       - "Style Transfer": models/style_transfer.md
       - "Salient Object Segmenation": models/salient_det.md
       - "Object Detection": models/obj_det.md
       - "Emotion Recognition": models/emotion.md
-      - "Mono Depth Prediction": models/mono_depth.md
       - "Super Resolution": models/super_resolution.md
       - "Face Detection": models/face_det.md
+      - "Human Parsing": models/human_parsing.md
       - "Image Classification": models/image_clf.md
       - "Human Portrait Segmentation": models/human_seg.md
       - "Semantic Segmentation": models/semantic_seg.md
