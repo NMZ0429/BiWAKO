@@ -4,7 +4,7 @@ import onnxruntime as rt
 
 
 from .base_inference import BaseInference
-from .util.utils import Image, maybe_download_weight
+from .util.utils import Image, maybe_download_weight, get_color_map_list
 
 
 WEIGHT_PATH = {
@@ -42,7 +42,7 @@ class SUIMNet(BaseInference):
         self.h, self.w = self.session.get_inputs()[0].shape[2:4]
         self.input_name = self.session.get_inputs()[0].name
         self.output_name = self.session.get_outputs()[0].name
-        self.c_map = self._get_color_map_list(num_classes)
+        self.c_map = get_color_map_list(num_classes)
 
     def predict(self, image: Image) -> np.ndarray:
         """Return the segmentation map of the image.
@@ -96,21 +96,3 @@ class SUIMNet(BaseInference):
         image = image.transpose((2, 0, 1)).astype(np.float32)
 
         return np.expand_dims(image, axis=0)
-
-    def _get_color_map_list(self, num_classes, custom_color=None):
-        num_classes += 1
-        color_map = num_classes * [0, 0, 0]
-        for i in range(0, num_classes):
-            j = 0
-            lab = i
-            while lab:
-                color_map[i * 3 + 2] |= ((lab >> 0) & 1) << (7 - j)
-                color_map[i * 3 + 1] |= ((lab >> 1) & 1) << (7 - j)
-                color_map[i * 3] |= ((lab >> 2) & 1) << (7 - j)
-                j += 1
-                lab >>= 3
-        color_map = color_map[3:]
-
-        if custom_color:
-            color_map[: len(custom_color)] = custom_color
-        return color_map

@@ -3,7 +3,7 @@ import numpy as np
 from onnxruntime import InferenceSession
 
 from .base_inference import BaseInference
-from .util.utils import Image, maybe_download_weight
+from .util.utils import Image, maybe_download_weight, get_color_map_list
 
 WEIGHT_PATH = {
     "fast_scnn384": "https://github.com/NMZ0429/Weights/releases/download/Temp/fast_scnn384.onnx",
@@ -38,7 +38,7 @@ class FastSCNN(BaseInference):
         self.output_name = self.model.get_outputs()[0].name
         self.mean = np.array([[[0.485, 0.456, 0.406]]])
         self.std = np.array([[[0.229, 0.224, 0.225]]])
-        self.c_map = self.__get_color_map_list(19)
+        self.c_map = get_color_map_list(19)
 
     def predict(self, image: Image) -> np.ndarray:
         """Return the prediction map. The last channel has 19 classes.
@@ -107,22 +107,3 @@ class FastSCNN(BaseInference):
         image = (image - self.mean) / self.std
         image = np.transpose(image, (2, 0, 1)).astype(np.float32)
         return np.expand_dims(image, axis=0)
-
-    def __get_color_map_list(self, num_classes, custom_color=None):
-        num_classes += 1
-        color_map = num_classes * [0, 0, 0]
-        for i in range(0, num_classes):
-            j = 0
-            lab = i
-            while lab:
-                color_map[i * 3 + 2] |= ((lab >> 0) & 1) << (7 - j)
-                color_map[i * 3 + 1] |= ((lab >> 1) & 1) << (7 - j)
-                color_map[i * 3] |= ((lab >> 2) & 1) << (7 - j)
-                j += 1
-                lab >>= 3
-        color_map = color_map[3:]
-
-        if custom_color:
-            color_map[: len(custom_color)] = custom_color
-
-        return color_map
