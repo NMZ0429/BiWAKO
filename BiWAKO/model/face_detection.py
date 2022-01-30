@@ -27,10 +27,6 @@ class YuNet(BaseInference):
         priors (np.ndarray): prior boxes.
     """
 
-    MIN_SIZES = [[10, 16, 24], [32, 48], [64, 96], [128, 192, 256]]
-    STEPS = [8, 16, 32, 64]
-    VARIANCE = [0.1, 0.2]
-
     def __init__(
         self,
         model: str = "yunet_120_160",
@@ -56,11 +52,15 @@ class YuNet(BaseInference):
         self.output_names = [self.model.get_outputs()[i].name for i in range(3)]
 
         self.input_shape = input_shape  # [w, h]
+        self.w, self.h = input_shape
         self.conf_th = conf_th
         self.nms_th = nms_th
         self.topk = topk
         self.keep_topk = keep_topk
 
+        self.MIN_SIZES = [[10, 16, 24], [32, 48], [64, 96], [128, 192, 256]]
+        self.STEPS = [8, 16, 32, 64]
+        self.VARIANCE = [0.1, 0.2]
         self.priors = self._generate_priors()
 
     def predict(self, image: Image) -> Tuple[list, list, list]:
@@ -78,9 +78,7 @@ class YuNet(BaseInference):
         """
         img = self._read_image(image)
         img = self._preprocess(img)
-
         pred = self.model.run(self.output_names, {self.input_name: img})
-
         bboxes, landmarks, scores = self._postprocess(pred)
 
         return bboxes, landmarks, scores
@@ -103,15 +101,12 @@ class YuNet(BaseInference):
             if self.conf_th > score:
                 continue
 
-            # 顔バウンディングボックス
-            x1 = int(image_width * (bbox[0] / self.input_shape[0]))
-            y1 = int(image_height * (bbox[1] / self.input_shape[1]))
-            x2 = int(image_width * (bbox[2] / self.input_shape[0])) + x1
-            y2 = int(image_height * (bbox[3] / self.input_shape[1])) + y1
+            x1 = int(image_width * (bbox[0] / self.w))
+            y1 = int(image_height * (bbox[1] / self.h))
+            x2 = int(image_width * (bbox[2] / self.w)) + x1
+            y2 = int(image_height * (bbox[3] / self.h)) + y1
 
             cv.rectangle(image, (x1, y1), (x2, y2), (0, 255, 0), 2)
-
-            # スコア
             cv.putText(
                 image,
                 "{:.4f}".format(score),
@@ -121,70 +116,26 @@ class YuNet(BaseInference):
                 (0, 255, 0),
             )
 
-            # 顔キーポイント
             for _, landmark_point in enumerate(landmark):
-                x = int(image_width * (landmark_point[0] / self.input_shape[0]))
-                y = int(image_height * (landmark_point[1] / self.input_shape[1]))
+                x = int(image_width * (landmark_point[0] / self.w))
+                y = int(image_height * (landmark_point[1] / self.h))
                 cv.circle(image, (x, y), 2, (0, 255, 0), 2)
 
         return image
 
-    def _generate_priors(self) -> np.ndarray:
-        w, h = self.input_shape
-
-        feature_map_2th = [int(int((h + 1) / 2) / 2), int(int((w + 1) / 2) / 2)]
-        feature_map_3th = [int(feature_map_2th[0] / 2), int(feature_map_2th[1] / 2)]
-        feature_map_4th = [int(feature_map_3th[0] / 2), int(feature_map_3th[1] / 2)]
-        feature_map_5th = [int(feature_map_4th[0] / 2), int(feature_map_4th[1] / 2)]
-        feature_map_6th = [int(feature_map_5th[0] / 2), int(feature_map_5th[1] / 2)]
-
-        feature_maps = [
-            feature_map_3th,
-            feature_map_4th,
-            feature_map_5th,
-            feature_map_6th,
-        ]
-
-        priors = []
-        for k, f in enumerate(feature_maps):
-            min_sizes = self.MIN_SIZES[k]
-            for i, j in product(range(f[0]), range(f[1])):
-                for min_size in min_sizes:
-                    s_kx = min_size / w
-                    s_ky = min_size / h
-
-                    cx = (j + 0.5) * self.STEPS[k] / w
-                    cy = (i + 0.5) * self.STEPS[k] / h
-
-                    priors.append([cx, cy, s_kx, s_ky])
-
-        return np.array(priors, dtype=np.float32)
-
     def _preprocess(self, image):
-        # BGR -> RGB 変換
         image = cv.cvtColor(image, cv.COLOR_BGR2RGB)
-
-        # リサイズ
-        image = cv.resize(
-            image,
-            (self.input_shape[0], self.input_shape[1]),
-            interpolation=cv.INTER_LINEAR,
-        )
-
-        # リシェイプ
+        image = cv.resize(image, (self.w, self.h))
         image = image.astype(np.float32)
         image = image.transpose((2, 0, 1))
-        image = image.reshape(1, 3, self.input_shape[1], self.input_shape[0])
+        image = image.reshape(1, 3, self.h, self.w)
 
         return image
 
     def _postprocess(
         self, result
     ) -> Tuple[List[np.ndarray], List[np.ndarray], List[float]]:
-        # 結果デコード
         dets = self._decode(result)
-
-        # NMS
         keepIdx = cv.dnn.NMSBoxes(
             bboxes=dets[:, 0:4].tolist(),
             scores=dets[:, -1].tolist(),
@@ -192,8 +143,6 @@ class YuNet(BaseInference):
             nms_threshold=self.nms_th,
             top_k=self.topk,
         )
-
-        # bboxes, landmarks, scores へ成形
         scores = []
         bboxes = []
         landmarks = []
@@ -211,7 +160,6 @@ class YuNet(BaseInference):
     def _decode(self, result):
         loc, conf, iou = result
 
-        # スコア取得
         cls_scores = conf[:, 1]
         iou_scores = iou[:, 0]
 
@@ -224,7 +172,6 @@ class YuNet(BaseInference):
 
         scale = np.array(self.input_shape)
 
-        # バウンディングボックス取得
         bboxes = np.hstack(
             (
                 (
@@ -237,7 +184,6 @@ class YuNet(BaseInference):
         )
         bboxes[:, 0:2] -= bboxes[:, 2:4] / 2
 
-        # ランドマーク取得
         landmarks = np.hstack(
             (
                 (
@@ -271,3 +217,39 @@ class YuNet(BaseInference):
         dets = np.hstack((bboxes, landmarks, scores))
 
         return dets
+
+    def _generate_priors(self) -> np.ndarray:
+        """Initialize prior bboxes.
+
+        Returns:
+            np.ndarray: Prior bboxes.
+        """
+        w, h = self.input_shape
+
+        feature_map_2th = [int(int((h + 1) / 2) / 2), int(int((w + 1) / 2) / 2)]
+        feature_map_3th = [int(feature_map_2th[0] / 2), int(feature_map_2th[1] / 2)]
+        feature_map_4th = [int(feature_map_3th[0] / 2), int(feature_map_3th[1] / 2)]
+        feature_map_5th = [int(feature_map_4th[0] / 2), int(feature_map_4th[1] / 2)]
+        feature_map_6th = [int(feature_map_5th[0] / 2), int(feature_map_5th[1] / 2)]
+
+        feature_maps = [
+            feature_map_3th,
+            feature_map_4th,
+            feature_map_5th,
+            feature_map_6th,
+        ]
+
+        priors = []
+        for k, f in enumerate(feature_maps):
+            min_sizes = self.MIN_SIZES[k]
+            for i, j in product(range(f[0]), range(f[1])):
+                for min_size in min_sizes:
+                    s_kx = min_size / w
+                    s_ky = min_size / h
+
+                    cx = (j + 0.5) * self.STEPS[k] / w
+                    cy = (i + 0.5) * self.STEPS[k] / h
+
+                    priors.append([cx, cy, s_kx, s_ky])
+
+        return np.array(priors, dtype=np.float32)
