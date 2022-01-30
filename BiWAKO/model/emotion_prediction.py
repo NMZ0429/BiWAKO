@@ -34,16 +34,18 @@ class FerPlus(BaseInference):
         self.session = InferenceSession(self.model_path)
         self.input_name = self.session.get_inputs()[0].name
         self.output_name = self.session.get_outputs()[0].name
-        self.emotion_table = [
-            "neutral",
-            "happiness",
-            "surprise",
-            "sadness",
-            "anger",
-            "disgust",
-            "fear",
-            "contempt",
-        ]
+        self.emotion_table = np.array(
+            [
+                "neutral",
+                "happiness",
+                "surprise",
+                "sadness",
+                "anger",
+                "disgust",
+                "fear",
+                "contempt",
+            ]
+        )
 
     def predict(self, image: Image) -> np.ndarray:
         """Return the array of the confidences of each predction.
@@ -62,24 +64,33 @@ class FerPlus(BaseInference):
 
         return prediction
 
-    def render(self, prediction: np.ndarray, image: Image) -> np.ndarray:
-        """Return the list of emotions and their confidences in string.
-
-        This method is currently under the development.
+    def render(
+        self, prediction: np.ndarray, image: Image, *args, **kwargs
+    ) -> np.ndarray:
+        """Return the list of emotions and their confidences in string over the image.
 
         Args:
             prediction (np.ndarray): The array of the confidences of each predction.
             image (Image): Image to be processed. Accept the path to the image or cv2 image. Not actually required.
 
         Returns:
-            np.ndarray: The list of emotions and their confidences in string.
+            np.ndarray:  Image with the list of emotions and their confidences in string.
         """
+        img = self._read_image(image)
+        lw = max(round(sum(img.shape) / 2 * 0.003), 2)
         # convert prediction to emotion_table
-        rtn = []
-        for k, i in enumerate(prediction):
-            rtn.append(f"Prediction {k}: {self.emotion_table[i]}")
+        classes = np.argsort(prediction)[::-1]
+        cv.putText(
+            img,
+            self.emotion_table[classes[0]],
+            (10, 50),
+            cv.FONT_HERSHEY_SIMPLEX,
+            lw,
+            (180, 233, 84),
+            thickness=2,
+        )
 
-        return rtn  # type: ignore
+        return img
 
     def _preprocess(self, image: np.ndarray) -> np.ndarray:
 
@@ -92,9 +103,8 @@ class FerPlus(BaseInference):
     def _postprocess(self, prediction: np.ndarray) -> np.ndarray:
         prob = self.softmax(prediction)
         prob = np.squeeze(prob)
-        classes = np.argsort(prob)[::-1]
 
-        return classes
+        return prob
 
     def softmax(self, x):
 

@@ -68,7 +68,7 @@ class HINet(BaseInference):
             np.ndarray: Denoised image in cv2 format.
         """
         img_1, img_2 = self._postprocess(prediction)
-        if image:
+        if image is not None:
             h, w = self._read_image(image).shape[:2]
         elif output_shape:
             h, w = output_shape
