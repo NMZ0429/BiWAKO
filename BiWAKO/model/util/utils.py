@@ -1,5 +1,5 @@
 import os
-from typing import Union, Dict
+from typing import Union, Dict, List, Tuple, Optional
 import requests
 from tqdm import tqdm
 from pathlib import Path
@@ -169,3 +169,35 @@ class Colors:
     def hex2rgb(h):
         # rgb order (PIL)
         return tuple(int(h[1 + i : 1 + i + 2], 16) for i in (0, 2, 4))
+
+
+def get_color_map_list(
+    num_classes: int, custom_color: Optional[List[Tuple[int, int, int]]] = None
+) -> List[int]:
+    """Return a list of rgb colors for segmap visualization.
+
+    Args:
+        num_classes (int): number of classes
+        custom_color (Optional[List[Tuple[int, int, int]]], optional): List of tuples denoting RGB values. Defaults to None.
+
+    Returns:
+        List[Tuple[int, int, int]]: num_classes by 3 list of rgb colors for segmengtation visualization.
+    """
+
+    num_classes += 1
+    color_map = num_classes * [0, 0, 0]
+    for i in range(0, num_classes):
+        j = 0
+        lab = i
+        while lab:
+            color_map[i * 3 + 2] |= ((lab >> 0) & 1) << (7 - j)
+            color_map[i * 3 + 1] |= ((lab >> 1) & 1) << (7 - j)
+            color_map[i * 3] |= ((lab >> 2) & 1) << (7 - j)
+            j += 1
+            lab >>= 3
+    color_map = color_map[3:]
+
+    if custom_color:
+        color_map[: len(custom_color)] = custom_color  # type: ignore
+
+    return color_map
