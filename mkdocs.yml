@@ -11,15 +11,18 @@ theme:
       accent: green
       scheme: default
       toggle:
-        icon: material/toggle-switch-off-outline
+        icon: material/lightbulb
         name: Switch to dark mode
     - media: "(prefers-color-scheme: dark)"
       primary: light blue
       accent: green
       scheme: slate
       toggle:
-        icon: material/toggle-switch
+        icon: material/lightbulb-outline
         name: Switch to light mode
+
+repo_url: https://github.com/NMZ0429/BiWAKO
+repo_name: NMZ0429/BiWAKO
 
 nav:
   - "Home": index.md
