@@ -32,6 +32,8 @@ def _download_file(url: str, filename: str) -> str:
 def download_weight(file_url: str, save_path: Union[str, Path] = "") -> str:
     """Download onnx file to save_path and return the path to the saved file.
 
+    Input file_url will be parsed.
+
     Args:
         file_url (str): url to onnx file
         save_path (Union[str, Path], optional): path to store the fie. Defaults to "".
