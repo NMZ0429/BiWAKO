@@ -1,5 +1,10 @@
 # U2Net
 
+<figure markdown>
+  ![Image title](img/u2net.jpg){ width="700" }
+  <figcaption>Query image and prediction</figcaption>
+</figure>
+
 ## `BiWAKO.U2Net`
 
 ::: BiWAKO.U2Net

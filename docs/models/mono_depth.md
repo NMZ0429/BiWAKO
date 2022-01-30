@@ -1,5 +1,10 @@
 # Mono Depth Prediction
 
+<figure markdown>
+  ![Image title](img/midas.jpg){ width="700" }
+  <figcaption>Query image and prediction</figcaption>
+</figure>
+
 ## `BiWAKO.MiDAS`
 
 ::: BiWAKO.MiDAS

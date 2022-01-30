@@ -1,5 +1,10 @@
 # Object Detection
 
+<figure markdown>
+  ![Image title](img/yolo.jpg){ width="700" }
+  <figcaption>Query image and prediction</figcaption>
+</figure>
+
 There are two models available now.
 
 ---

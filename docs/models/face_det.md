@@ -1,5 +1,10 @@
 # Face Detection
 
+<figure markdown>
+  ![Image title](img/yunet.jpg){ width="700" }
+  <figcaption>Query image and prediction</figcaption>
+</figure>
+
 ## `BiWAKO.YuNet`
 
 ::: BiWAKO.YuNet

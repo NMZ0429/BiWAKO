@@ -1,5 +1,10 @@
 # Emotion Recognition
 
+<figure markdown>
+  ![Image title](img/ferplus.jpg){ width="700" }
+  <figcaption>Original image and denoised image</figcaption>
+</figure>
+
 ## `BiWAKO.FerPlus`
 
 ::: BiWAKO.FerPlus

@@ -1,5 +1,10 @@
 # Human Portrait Segmentation
 
+<figure markdown>
+  ![Image title](img/modnet.jpg){ width="700" }
+  <figcaption>Query image, predicted segmentation map, and visualization</figcaption>
+</figure>
+
 ## `BiWAKO.MODNet`
 
 ::: BiWAKO.MODNet

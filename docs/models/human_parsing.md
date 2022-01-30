@@ -1,5 +1,10 @@
 # Human Parsing
 
+<figure markdown>
+  ![Image title](img/human_parsing.jpg){ width="700" }
+  <figcaption>Query image and prediction</figcaption>
+</figure>
+
 ## `BiWAKO.HumanParsing`
 
 ::: BiWAKO.HumanParsing
