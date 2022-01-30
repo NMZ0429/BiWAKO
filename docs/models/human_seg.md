@@ -1,5 +1,7 @@
 # Human Portrait Segmentation
 
+## `BiWAKO.MODNet`
+
 ::: BiWAKO.MODNet
     handler: python
     selection:
@@ -9,7 +11,7 @@
             - render
             - _preprocess
     rendering:
-        show_root_heading: true
+        show_root_heading: false
         show_source: false
 
 ## Reference

@@ -1,5 +1,7 @@
 # U2Net
 
+## `BiWAKO.U2Net`
+
 ::: BiWAKO.U2Net
     handler: python
     selection:
@@ -8,5 +10,5 @@
             - predict
             - render
     rendering:
-        show_root_heading: true
+        show_root_heading: false
         show_source: false
