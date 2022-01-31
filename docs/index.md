@@ -2,11 +2,11 @@
 
 ## 0. Introduction
 
-This repository offers
+This is the largest lake for many ready-to-use SOTA models.
 
 1. **Models**: Trained state-of-the-art models for various vision tasks in ONNXRuntime backend
 2. **No-Code Modules**: Easy interface to use those models for both prediction and visualizing output. No coding is needed. The interface is universal among all models in this library.
-3. **Extentiability**: Customizable modules to use it for applications such as realtime inference.
+3. **Extentiability**: Customizable modules to use it for applications such as realtime inference and web application.
 
 ## 1. Installation
 
