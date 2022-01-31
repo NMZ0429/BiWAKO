@@ -11,30 +11,33 @@ theme:
       accent: green
       scheme: default
       toggle:
-        icon: material/toggle-switch-off-outline
+        icon: material/lightbulb
         name: Switch to dark mode
     - media: "(prefers-color-scheme: dark)"
       primary: light blue
       accent: green
       scheme: slate
       toggle:
-        icon: material/toggle-switch
+        icon: material/lightbulb-outline
         name: Switch to light mode
+
+repo_url: https://github.com/NMZ0429/BiWAKO
+repo_name: NMZ0429/BiWAKO
 
 nav:
   - "Home": index.md
   - "Model":
-      - "Human Parsing": models/human_parsing.md
+      - "Mono Depth Prediction": models/mono_depth.md
+      - "Object Detection": models/obj_det.md
+      - "Super Resolution": models/super_resolution.md
+      - "Human Portrait Segmentation": models/human_seg.md
       - "Denoise Image": models/denoising.md
       - "Style Transfer": models/style_transfer.md
       - "Salient Object Segmenation": models/salient_det.md
-      - "Object Detection": models/obj_det.md
       - "Emotion Recognition": models/emotion.md
-      - "Mono Depth Prediction": models/mono_depth.md
-      - "Super Resolution": models/super_resolution.md
       - "Face Detection": models/face_det.md
+      - "Human Parsing": models/human_parsing.md
       - "Image Classification": models/image_clf.md
-      - "Human Portrait Segmentation": models/human_seg.md
       - "Semantic Segmentation": models/semantic_seg.md
       - "Diver's View Segmentation": models/suim_net.md
   - "API":
@@ -58,3 +61,6 @@ markdown_extensions:
 
   - attr_list
   - md_in_html
+
+extra:
+  generator: false

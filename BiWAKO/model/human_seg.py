@@ -58,6 +58,7 @@ class MODNet(BaseInference):
         self,
         prediction: np.ndarray,
         image: Image,
+        black_out: bool = False,
         score_th: Optional[float] = None,
         **kwargs
     ) -> np.ndarray:
@@ -66,6 +67,7 @@ class MODNet(BaseInference):
         Args:
             prediction (np.ndarray): Mask returned by predict().
             image (Image): Image to be segmented. Accept path to image or cv2 image.
+            black_out (bool, optional): Whether to use black background. Defaults to False.
             score_th (float, optional): Optional threshold for mask. Defaults to use the value set in the constructor.
 
         Returns:
@@ -75,10 +77,15 @@ class MODNet(BaseInference):
         image = self._read_image(image)
         rendered = np.zeros_like(image, dtype=np.uint8)
         rendered[:] = (230, 216, 173)
-        mask = np.where(prediction > score_th, 0, 1)
-        mask = np.stack((mask,) * 3, axis=-1).astype(np.uint8)
-        mask_image = np.where(mask, image, rendered)
-        image = cv.addWeighted(image, 0.5, mask_image, 0.5, 1.0)
+        if black_out:
+            mask = np.where(prediction > score_th, 1, 0)
+            mask = np.stack((mask,) * 3, axis=-1).astype(np.uint8)
+            image = (image * mask).astype(np.uint8)
+        else:
+            mask = np.where(prediction > score_th, 0, 1)
+            mask = np.stack((mask,) * 3, axis=-1).astype(np.uint8)
+            mask_image = np.where(mask, image, rendered)
+            image = cv.addWeighted(image, 0.5, mask_image, 0.5, 1.0)
 
         return image  # type: ignore
 

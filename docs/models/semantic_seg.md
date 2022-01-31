@@ -1,5 +1,12 @@
 # Semantic Segmentation
 
+Very light weight semantic segmentation model.
+
+<figure markdown>
+  ![Image title](img/fastscnn.jpg){ width="700" }
+  <figcaption>Query image and prediction</figcaption>
+</figure>
+
 ## `BiWAKO.FastSCNN`
 
 ::: BiWAKO.FastSCNN

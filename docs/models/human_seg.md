@@ -1,5 +1,12 @@
 # Human Portrait Segmentation
 
+<figure markdown>
+  ![Image title](img/modnet.jpg){ width="700" }
+  <figcaption>Query image, predicted segmentation map, and visualization</figcaption>
+</figure>
+
+## `BiWAKO.MODNet`
+
 ::: BiWAKO.MODNet
     handler: python
     selection:
@@ -9,7 +16,7 @@
             - render
             - _preprocess
     rendering:
-        show_root_heading: true
+        show_root_heading: false
         show_source: false
 
 ## Reference
