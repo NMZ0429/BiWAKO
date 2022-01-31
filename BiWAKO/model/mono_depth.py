@@ -45,6 +45,15 @@ class MiDAS(BaseInference):
         Args:
             model (str, optional): Model name or path to the downloaded onnx file. Defaults to "mono_depth_small". Onnx file is downloaded automatically.
             show_exp (bool, optional): True to display expected input size. Defaults to False.
+
+        Examples:
+            >>> model = MiDAS("mono_depth_large")
+            downloading mono_depth_large.onnx to mono_depth_large.onnx
+            100%|██████████| 416M/416M [02:11<00:00, 3.47MB/s]
+
+            >>> model = MiDAS("weights/midas/mono_depth_small.onnx") # download to a specific directory
+            downloading mono_depth_small.onnx to weights/midas/mono_depth_small.onnx
+            100%|██████████| 66.8M/66.8M [03:26<00:00, 323kB/s]
         """
         self.model_path = maybe_download_weight(WEIGHT_PATH, model)
         self.session = rt.InferenceSession(self.model_path)
