@@ -28,16 +28,16 @@ nav:
   - "Home": index.md
   - "Model":
       - "Mono Depth Prediction": models/mono_depth.md
+      - "Object Detection": models/obj_det.md
+      - "Super Resolution": models/super_resolution.md
+      - "Human Portrait Segmentation": models/human_seg.md
       - "Denoise Image": models/denoising.md
       - "Style Transfer": models/style_transfer.md
       - "Salient Object Segmenation": models/salient_det.md
-      - "Object Detection": models/obj_det.md
       - "Emotion Recognition": models/emotion.md
-      - "Super Resolution": models/super_resolution.md
       - "Face Detection": models/face_det.md
       - "Human Parsing": models/human_parsing.md
       - "Image Classification": models/image_clf.md
-      - "Human Portrait Segmentation": models/human_seg.md
       - "Semantic Segmentation": models/semantic_seg.md
       - "Diver's View Segmentation": models/suim_net.md
   - "API":
@@ -61,3 +61,6 @@ markdown_extensions:
 
   - attr_list
   - md_in_html
+
+extra:
+  generator: false
