@@ -8,19 +8,19 @@
       
       
       
-      <link rel="icon" href="assets/images/favicon.png">
+      <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.4">
     
     
       
-        <title>BiWAKO</title>
+        <title>Mono Depth Prediction - BiWAKO</title>
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.bb3983ee.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.bb3983ee.min.css">
       
         
-        <link rel="stylesheet" href="assets/stylesheets/palette.e6a45f82.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.e6a45f82.min.css">
         
       
     
@@ -34,9 +34,9 @@
       
     
     
-      <link rel="stylesheet" href="assets/_mkdocstrings.css">
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
     
-    <script>__md_scope=new URL(".",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -64,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#_1" class="md-skip">
+        <a href="#mono-depth-prediction" class="md-skip">
           Skip to content
         </a>
       
@@ -78,7 +78,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="." title="BiWAKO" class="md-header__button md-logo" aria-label="BiWAKO" data-md-component="logo">
+    <a href="../.." title="BiWAKO" class="md-header__button md-logo" aria-label="BiWAKO" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12 20 .76-3c-3.26-.21-6.17-1.6-7.01-3.42-.09.48-.22.92-.42 1.25C4.67 16 3.33 16 2 16c1.1 0 1.5-1.57 1.5-3.5S3.1 9 2 9c1.33 0 2.67 0 3.33 1.17.2.33.33.77.42 1.25.65-1.42 2.57-2.57 4.91-3.1L9 5c2 0 4 0 5.33.67 1.13.56 1.78 1.6 2.36 2.71 2.92.7 5.31 2.28 5.31 4.12 0 1.88-2.5 3.5-5.5 4.16-.83 1.1-1.64 2.12-2.33 2.67-.84.67-1.5.67-2.17.67m5-9a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1z"/></svg>
@@ -97,7 +97,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Home
+              Mono Depth Prediction
             
           </span>
         </div>
@@ -198,7 +198,7 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="." title="BiWAKO" class="md-nav__button md-logo" aria-label="BiWAKO" data-md-component="logo">
+    <a href="../.." title="BiWAKO" class="md-nav__button md-logo" aria-label="BiWAKO" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12 20 .76-3c-3.26-.21-6.17-1.6-7.01-3.42-.09.48-.22.92-.42 1.25C4.67 16 3.33 16 2 16c1.1 0 1.5-1.57 1.5-3.5S3.1 9 2 9c1.33 0 2.67 0 3.33 1.17.2.33.33.77.42 1.25.65-1.42 2.57-2.57 4.91-3.1L9 5c2 0 4 0 5.33.67 1.13.56 1.78 1.6 2.36 2.71 2.92.7 5.31 2.28 5.31 4.12 0 1.88-2.5 3.5-5.5 4.16-.83 1.1-1.64 2.12-2.33 2.67-.84.67-1.5.67-2.17.67m5-9a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1z"/></svg>
@@ -227,93 +227,11 @@
 
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          Home
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="." class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
         Home
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#0-introduction" class="md-nav__link">
-    0. Introduction
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#1-installation" class="md-nav__link">
-    1. Installation
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2-usage" class="md-nav__link">
-    2. Usage
-  </a>
-  
-    <nav class="md-nav" aria-label="2. Usage">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#2-2-high-level-apis" class="md-nav__link">
-    2-2 High Level APIs
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4-models" class="md-nav__link">
-    4. Models
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#5-deployment" class="md-nav__link">
-    5. Deployment
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -324,12 +242,14 @@
 
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
       
       
       
@@ -350,11 +270,80 @@
               
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="models/mono_depth/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Mono Depth Prediction
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         Mono Depth Prediction
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#biwakomidas" class="md-nav__link">
+    BiWAKO.MiDAS
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#BiWAKO.model.mono_depth.MiDAS" class="md-nav__link">
+    BiWAKO.model.mono_depth.MiDAS
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#BiWAKO.model.mono_depth.MiDAS.__init__" class="md-nav__link">
+    __init__()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#BiWAKO.model.mono_depth.MiDAS.predict" class="md-nav__link">
+    predict()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#BiWAKO.model.mono_depth.MiDAS.render" class="md-nav__link">
+    render()
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -366,7 +355,7 @@
   
   
     <li class="md-nav__item">
-      <a href="models/obj_det/" class="md-nav__link">
+      <a href="../obj_det/" class="md-nav__link">
         Object Detection
       </a>
     </li>
@@ -380,7 +369,7 @@
   
   
     <li class="md-nav__item">
-      <a href="models/super_resolution/" class="md-nav__link">
+      <a href="../super_resolution/" class="md-nav__link">
         Super Resolution
       </a>
     </li>
@@ -394,7 +383,7 @@
   
   
     <li class="md-nav__item">
-      <a href="models/human_seg/" class="md-nav__link">
+      <a href="../human_seg/" class="md-nav__link">
         Human Portrait Segmentation
       </a>
     </li>
@@ -408,7 +397,7 @@
   
   
     <li class="md-nav__item">
-      <a href="models/denoising/" class="md-nav__link">
+      <a href="../denoising/" class="md-nav__link">
         Denoise Image
       </a>
     </li>
@@ -422,7 +411,7 @@
   
   
     <li class="md-nav__item">
-      <a href="models/style_transfer/" class="md-nav__link">
+      <a href="../style_transfer/" class="md-nav__link">
         Style Transfer
       </a>
     </li>
@@ -436,7 +425,7 @@
   
   
     <li class="md-nav__item">
-      <a href="models/salient_det/" class="md-nav__link">
+      <a href="../salient_det/" class="md-nav__link">
         Salient Object Segmenation
       </a>
     </li>
@@ -450,7 +439,7 @@
   
   
     <li class="md-nav__item">
-      <a href="models/emotion/" class="md-nav__link">
+      <a href="../emotion/" class="md-nav__link">
         Emotion Recognition
       </a>
     </li>
@@ -464,7 +453,7 @@
   
   
     <li class="md-nav__item">
-      <a href="models/face_det/" class="md-nav__link">
+      <a href="../face_det/" class="md-nav__link">
         Face Detection
       </a>
     </li>
@@ -478,7 +467,7 @@
   
   
     <li class="md-nav__item">
-      <a href="models/human_parsing/" class="md-nav__link">
+      <a href="../human_parsing/" class="md-nav__link">
         Human Parsing
       </a>
     </li>
@@ -492,7 +481,7 @@
   
   
     <li class="md-nav__item">
-      <a href="models/image_clf/" class="md-nav__link">
+      <a href="../image_clf/" class="md-nav__link">
         Image Classification
       </a>
     </li>
@@ -506,7 +495,7 @@
   
   
     <li class="md-nav__item">
-      <a href="models/semantic_seg/" class="md-nav__link">
+      <a href="../semantic_seg/" class="md-nav__link">
         Semantic Segmentation
       </a>
     </li>
@@ -520,7 +509,7 @@
   
   
     <li class="md-nav__item">
-      <a href="models/suim_net/" class="md-nav__link">
+      <a href="../suim_net/" class="md-nav__link">
         Diver's View Segmentation
       </a>
     </li>
@@ -568,7 +557,7 @@
   
   
     <li class="md-nav__item">
-      <a href="api/" class="md-nav__link">
+      <a href="../../api/" class="md-nav__link">
         APIs
       </a>
     </li>
@@ -582,7 +571,7 @@
   
   
     <li class="md-nav__item">
-      <a href="api/video_predictor/" class="md-nav__link">
+      <a href="../../api/video_predictor/" class="md-nav__link">
         Video Prediction
       </a>
     </li>
@@ -630,7 +619,7 @@
   
   
     <li class="md-nav__item">
-      <a href="demo/" class="md-nav__link">
+      <a href="../../demo/" class="md-nav__link">
         Use Demo Scripts
       </a>
     </li>
@@ -671,49 +660,36 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#0-introduction" class="md-nav__link">
-    0. Introduction
+  <a href="#biwakomidas" class="md-nav__link">
+    BiWAKO.MiDAS
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#1-installation" class="md-nav__link">
-    1. Installation
+  <a href="#BiWAKO.model.mono_depth.MiDAS" class="md-nav__link">
+    BiWAKO.model.mono_depth.MiDAS
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-usage" class="md-nav__link">
-    2. Usage
-  </a>
-  
-    <nav class="md-nav" aria-label="2. Usage">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#2-2-high-level-apis" class="md-nav__link">
-    2-2 High Level APIs
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4-models" class="md-nav__link">
-    4. Models
+  <a href="#BiWAKO.model.mono_depth.MiDAS.__init__" class="md-nav__link">
+    __init__()
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#5-deployment" class="md-nav__link">
-    5. Deployment
+  <a href="#BiWAKO.model.mono_depth.MiDAS.predict" class="md-nav__link">
+    predict()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#BiWAKO.model.mono_depth.MiDAS.render" class="md-nav__link">
+    render()
   </a>
   
 </li>
@@ -730,147 +706,272 @@
             <article class="md-content__inner md-typeset">
               
                 
-<a href="https://github.com/NMZ0429/BiWAKO/edit/master/docs/index.md" title="Edit this page" class="md-content__button md-icon">
+<a href="https://github.com/NMZ0429/BiWAKO/edit/master/docs/models/mono_depth.md" title="Edit this page" class="md-content__button md-icon">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
 </a>
 
 
-<h1 id="_1"><img src="img/biwako.png" width="700"></h1>
-<h2 id="0-introduction">0. Introduction</h2>
-<p>This is the largest lake for many ready-to-use SOTA models.</p>
-<ol>
-<li><strong>Models</strong>: Trained state-of-the-art models for various vision tasks in ONNXRuntime backend</li>
-<li><strong>No-Code Modules</strong>: Easy interface to use those models for both prediction and visualizing output. No coding is needed. The interface is universal among all models in this library.</li>
-<li><strong>Extentiability</strong>: Customizable modules to use it for applications such as realtime inference and web application.</li>
-</ol>
-<h2 id="1-installation">1. Installation</h2>
-<p>Install directly from this repository.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nv">$cd</span> BiWAKO
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nv">$pip</span> install -e .
-</code></pre></div>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Downloading from pip server is currently suspended in order to simplify dependency requirements. We will update it soon.</p>
+<h1 id="mono-depth-prediction">Mono Depth Prediction</h1>
+<figure>
+<p><img alt="Image title" src="../img/midas.jpg" width="700" />
+  </p>
+<figcaption>Query image and prediction</figcaption>
+</figure>
+<h2 id="biwakomidas"><code>BiWAKO.MiDAS</code></h2>
+
+
+  <div class="doc doc-object doc-class">
+
+<a id="BiWAKO.model.mono_depth.MiDAS"></a>
+    <div class="doc doc-contents first">
+
+      <p>MonoDepth prediction model.</p>
+<div class="admonition model">
+<p class="admonition-title">Model</p>
+<p>This is a pretrained MiDASv1 model. Currently available models are:
+    - mono_depth_small
+    - mono_depth_large</p>
 </div>
-<h2 id="2-usage">2. Usage</h2>
-<p><img src="img/basic_usage.png" width="700"></p>
-<p>No matter which model you use, these interface is the same.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">import</span> <span class="nn">BiWAKO</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="c1"># 1. Initialize Model</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="n">model</span> <span class="o">=</span> <span class="n">BiWAKO</span><span class="o">.</span><span class="n">MiDAS</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s2">&quot;mono_depth_small&quot;</span><span class="p">)</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="c1"># 2. Feed Image (accept cv2 image or path to the image)</span>
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="n">prediction</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">image_or_image_path</span><span class="p">)</span>
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>
-<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="c1"># 3. Visiualize result as a cv2 image</span>
-<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="n">result_img</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">prediction</span><span class="p">,</span> <span class="n">image_or_image_path</span><span class="p">)</span>
-</code></pre></div>
-<p>More specifically...</p>
-<ol>
-<li>Instantiate model with <code>BiWAKO.ModelName(weight)</code>. The <code>ModelName</code> and <code>weight</code> corresponding to the task you want to work on can be found at the table in the next section. Weight file is automaticaly downloaded.</li>
-<li>call <code>predict(image)</code>. <code>image</code> can be either path to the image or cv2 image array.</li>
-<li>call <code>render(prediction, image)</code>. <code>prediction</code> is the return value of <code>predict()</code> method and <code>image</code> is the same as above. Some model takes optional arguments to control details in the output.</li>
-</ol>
-<h3 id="2-2-high-level-apis">2-2 High Level APIs</h3>
-<p>We also provides some APIs to even accelerate productions. See <a href="api/">API page</a> for further details/</p>
-<h2 id="4-models">4. Models</h2>
-<p>The following list is the current availability of models with weight variations.<br />
-Click the link at the model column for futher documentation.</p>
+
+<p><strong>Attributes:</strong></p>
 <table>
-<thead>
-<tr>
-<th align="left">Task</th>
-<th align="left">Model</th>
-<th align="left">Weights</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="left">Mono Depth Prediction</td>
-<td align="left"><a href="models/mono_depth/">MiDAS</a></td>
-<td align="left">mono_depth_small<br>mono_depth_large</td>
-</tr>
-<tr>
-<td align="left">Salient Object Detection</td>
-<td align="left"><a href="models/salient_det/">U2Net</a></td>
-<td align="left">mobile<br>basic<br>human_seg<br>portrait</td>
-</tr>
-<tr>
-<td align="left">Super Resolution</td>
-<td align="left"><a href="models/super_resolution/">RealESRGAN</a></td>
-<td align="left">super_resolution4864<br>super_resolution6464</td>
-</tr>
-<tr>
-<td align="left">Object Detection</td>
-<td align="left"><a href="models/obj_det/">YOLO2/YOLO</a></td>
-<td align="left">Please refer to docs for details</td>
-</tr>
-<tr>
-<td align="left">Emotion Prediction</td>
-<td align="left"><a href="models/emotion/">FerPlus</a></td>
-<td align="left">ferplus8</td>
-</tr>
-<tr>
-<td align="left">Human Parsing</td>
-<td align="left"><a href="models/human_parsing/">HumanParsing</a></td>
-<td align="left">human_attribute</td>
-</tr>
-<tr>
-<td align="left">Denoise</td>
-<td align="left"><a href="models/denoising/">HINet</a></td>
-<td align="left">denoise_320_480</td>
-</tr>
-<tr>
-<td align="left">Face Detection</td>
-<td align="left"><a href="models/face_det/">YuNet</a></td>
-<td align="left">yunet_120_160</td>
-</tr>
-<tr>
-<td align="left">Style Transfer</td>
-<td align="left"><a href="models/style_transfer/">AnimeGAN</a></td>
-<td align="left">animeGAN512</td>
-</tr>
-<tr>
-<td align="left">Image Classification</td>
-<td align="left"><a href="models/image_clf/">ResNetV2</a></td>
-<td align="left">resnet18v2<br>resnet50v2<br>resnet101v2<br>resnet152v2</td>
-</tr>
-<tr>
-<td align="left">Human Portrait Segmentation</td>
-<td align="left"><a href="models/human_seg/">MODNet</a></td>
-<td align="left">modnet_256</td>
-</tr>
-<tr>
-<td align="left">Semantic Segmentation</td>
-<td align="left"><a href="models/semantic_seg/">FastSCNN</a></td>
-<td align="left">fast_scnn384<br>fast_scnn7681344</td>
-</tr>
-<tr>
-<td align="left">Diver's View Segmentation</td>
-<td align="left"><a href="models/suim_net/">SUIMNet</a></td>
-<td align="left">suim_net_3248<br>suim_rsb_72128<br>suim_vgg_25632<br>suim_vgg_72128</td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>model_path</code></td>
+        <td><code>str</code></td>
+        <td><p>Path to model file. If automatic download is triggered, this path is used to save the model.</p></td>
+      </tr>
+      <tr>
+        <td><code>session</code></td>
+        <td><code>onnxruntime.InferenceSession</code></td>
+        <td><p>Inference session.</p></td>
+      </tr>
+      <tr>
+        <td><code>input_name</code></td>
+        <td><code>str</code></td>
+        <td><p>Input node name.</p></td>
+      </tr>
+      <tr>
+        <td><code>output_name</code></td>
+        <td><code>str</code></td>
+        <td><p>Output node name.</p></td>
+      </tr>
+      <tr>
+        <td><code>input_shape</code></td>
+        <td><code>tuple</code></td>
+        <td><p>Input shape.</p></td>
+      </tr>
+      <tr>
+        <td><code>h</code></td>
+        <td><code>int</code></td>
+        <td><p>Alias of input_shape[2].</p></td>
+      </tr>
+      <tr>
+        <td><code>w</code></td>
+        <td><code>int</code></td>
+        <td><p>Alias of input_shape[3].</p></td>
+      </tr>
+  </tbody>
 </table>
-<h2 id="5-deployment">5. Deployment</h2>
-<p>It is extremely easy to use BiWAKO at application layer.</p>
-<div class="admonition tip">
-<p class="admonition-title">1. Real Time Prediction</p>
-<p><img align="left" alt="live demo" src="img/live_demo.png" style="height:300px;width:450px" />
-Any model can be used in the same way to run real-time inference.</p>
-</div>
-<div class="admonition tip">
-<p class="admonition-title">2. FastAPI Implementation</p>
-<p><img align="left" alt="fastapi demo" src="img/fastapi_demo.png" style="height:300px;width:450px" />
-Like the above example, you can build simple Backend API for inference on web server.
-We have prepared sample deployment of the library with FastAPI.<a href="demo/">Read this for details</a>.</p>
-</div>
-<div class="admonition tip">
-<p class="admonition-title">3. Video Prediction</p>
-<p><img align="left" alt="video demo" src="img/video_demo.png" style="height:300px;width:450px" />
-We also provides pre-defined video prediction API. <a href="api/video_predictor/">Read this for details</a></p>
-</div>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h2 id="BiWAKO.model.mono_depth.MiDAS.__init__" class="doc doc-heading">
+<code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s1">&#39;mono_depth_small&#39;</span><span class="p">,</span> <span class="n">show_exp</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-special"><code>special</code></small>
+  </span>
+
+</h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Initialize model.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>model</code></td>
+        <td><code>str</code></td>
+        <td><p>Model name or path to the downloaded onnx file. Defaults to "mono_depth_small". Onnx file is downloaded automatically.</p></td>
+        <td><code>&#39;mono_depth_small&#39;</code></td>
+      </tr>
+      <tr>
+        <td><code>show_exp</code></td>
+        <td><code>bool</code></td>
+        <td><p>True to display expected input size. Defaults to False.</p></td>
+        <td><code>False</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Examples:</strong></p>
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">model</span> <span class="o">=</span> <span class="n">MiDAS</span><span class="p">(</span><span class="s2">&quot;mono_depth_large&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">downloading</span> <span class="n">mono_depth_large</span><span class="o">.</span><span class="n">onnx</span> <span class="n">to</span> <span class="n">mono_depth_large</span><span class="o">.</span><span class="n">onnx</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="mi">100</span><span class="o">%|</span><span class="err">██████████</span><span class="o">|</span> <span class="mi">416</span><span class="n">M</span><span class="o">/</span><span class="mi">416</span><span class="n">M</span> <span class="p">[</span><span class="mi">02</span><span class="p">:</span><span class="mi">11</span><span class="o">&lt;</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">,</span> <span class="mf">3.47</span><span class="n">MB</span><span class="o">/</span><span class="n">s</span><span class="p">]</span>
+</code></pre></div>
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">model</span> <span class="o">=</span> <span class="n">MiDAS</span><span class="p">(</span><span class="s2">&quot;weights/midas/mono_depth_small.onnx&quot;</span><span class="p">)</span> <span class="c1"># download to a specific directory</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">downloading</span> <span class="n">mono_depth_small</span><span class="o">.</span><span class="n">onnx</span> <span class="n">to</span> <span class="n">weights</span><span class="o">/</span><span class="n">midas</span><span class="o">/</span><span class="n">mono_depth_small</span><span class="o">.</span><span class="n">onnx</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="mi">100</span><span class="o">%|</span><span class="err">██████████</span><span class="o">|</span> <span class="mf">66.8</span><span class="n">M</span><span class="o">/</span><span class="mf">66.8</span><span class="n">M</span> <span class="p">[</span><span class="mi">03</span><span class="p">:</span><span class="mi">26</span><span class="o">&lt;</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">,</span> <span class="mi">323</span><span class="n">kB</span><span class="o">/</span><span class="n">s</span><span class="p">]</span>
+</code></pre></div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h2 id="BiWAKO.model.mono_depth.MiDAS.predict" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">img</span><span class="p">)</span></code>
+
+
+</h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Predict.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>img</code></td>
+        <td><code>Union[str, np.ndarray]</code></td>
+        <td><p>image path or numpy array in cv2 format</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>np.ndarray</code></td>
+      <td><p>predicted depthmap</p></td>
+    </tr>
+  </tbody>
+</table>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h2 id="BiWAKO.model.mono_depth.MiDAS.render" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prediction</span><span class="p">,</span> <span class="n">query</span><span class="p">)</span></code>
+
+
+</h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Return the resized depth map in cv2 foramt.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>prediction</code></td>
+        <td><code>np.ndarray</code></td>
+        <td><p>predicted depthmap</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>query</code></td>
+        <td><code>Union[str, np.ndarray]</code></td>
+        <td><p>query image path or numpy array in cv2 format used for resizing.</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>np.ndarray</code></td>
+      <td><p>Resized depthmap</p></td>
+    </tr>
+  </tbody>
+</table>
+    </div>
+
+  </div>
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
 
               
             </article>
@@ -883,15 +984,30 @@ We also provides pre-defined video prediction API. <a href="api/video_predictor/
   
     <nav class="md-footer__inner md-grid" aria-label="Footer">
       
+        
+        <a href="../.." class="md-footer__link md-footer__link--prev" aria-label="Previous: Home" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Home
+            </div>
+          </div>
+        </a>
+      
       
         
-        <a href="models/mono_depth/" class="md-footer__link md-footer__link--next" aria-label="Next: Mono Depth Prediction" rel="next">
+        <a href="../obj_det/" class="md-footer__link md-footer__link--next" aria-label="Next: Object Detection" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 Next
               </span>
-              Mono Depth Prediction
+              Object Detection
             </div>
           </div>
           <div class="md-footer__button md-icon">
@@ -916,10 +1032,10 @@ We also provides pre-defined video prediction API. <a href="api/video_predictor/
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": ".", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "assets/javascripts/workers/search.361d90f1.min.js"}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.361d90f1.min.js"}</script>
     
     
-      <script src="assets/javascripts/bundle.289a2a4b.min.js"></script>
+      <script src="../../assets/javascripts/bundle.289a2a4b.min.js"></script>
       
     
   </body>
