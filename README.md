@@ -16,9 +16,11 @@
 
 # BiWAKO
 
-## NOTE
+## Docs
 
-Docs site is being published soon on github pages. This README is the copy of the front page of the docs site and some sections are broken.
+**Refer to the [docs](https://nmz0429.github.io/BiWAKO/)**
+
+This README is the copy of the front page of the docs site and some sections are not properly rendered.
 
 ## 0. Introduction
 
