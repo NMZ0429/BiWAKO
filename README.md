@@ -22,6 +22,12 @@
 
 This README is the copy of the front page of the docs site and some sections are not properly rendered.
 
+## Model/Feature Requests
+
+I am more than welcome to work for adding new models or features! If you have a model in pytorch or tensorflow, feel free to create an issue or new discussion stating which model or what feature you want from this repository!
+
+For model addition, links to the implementation or some working inference code definitely helps me to add the model and inference code.
+
 ## 0. Introduction
 
 This repository offers
