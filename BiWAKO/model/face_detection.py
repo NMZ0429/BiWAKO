@@ -30,17 +30,17 @@ class YuNet(BaseInference):
     def __init__(
         self,
         model: str = "yunet_120_160",
-        input_shape=[160, 120],
-        conf_th=0.6,
-        nms_th=0.3,
-        topk=5000,
-        keep_topk=750,
+        input_shape: Tuple[int, int] = None,
+        conf_th: float = 0.6,
+        nms_th: float = 0.3,
+        topk: int = 5000,
+        keep_topk: int = 750,
     ):
         """Initialize YuNet.
 
         Args:
             model (str): model name. Set to "yunet_120_160" by default.
-            input_shape (list, optional): Input image shape. Defaults to [160, 120].
+            input_shape (tuple, optional): Input image shape. Defaults to (160, 120).
             conf_th (float, optional): Confidence level threshold. Defaults to 0.6.
             nms_th (float, optional): NMS threshold. Defaults to 0.3.
             topk (int, optional): Number of faces to detect. Defaults to 5000.
@@ -51,6 +51,8 @@ class YuNet(BaseInference):
         self.input_name = self.model.get_inputs()[0].name
         self.output_names = [self.model.get_outputs()[i].name for i in range(3)]
 
+        if input_shape is None:
+            input_shape = (160, 120)
         self.input_shape = input_shape  # [w, h]
         self.w, self.h = input_shape
         self.conf_th = conf_th
@@ -136,7 +138,7 @@ class YuNet(BaseInference):
         self, result
     ) -> Tuple[List[np.ndarray], List[np.ndarray], List[float]]:
         dets = self._decode(result)
-        keepIdx = cv.dnn.NMSBoxes(
+        selected = cv.dnn.NMSBoxes(
             bboxes=dets[:, 0:4].tolist(),
             scores=dets[:, -1].tolist(),
             score_threshold=self.conf_th,
@@ -146,8 +148,8 @@ class YuNet(BaseInference):
         scores = []
         bboxes = []
         landmarks = []
-        if len(keepIdx) > 0:
-            dets = dets[keepIdx]
+        if len(selected) > 0:
+            dets = dets[selected]
             if len(dets.shape) == 3:
                 dets = np.squeeze(dets, axis=1)
             for det in dets[: self.keep_topk]:
