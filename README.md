@@ -9,6 +9,7 @@
 [![PyPI Status](https://pepy.tech/badge/NaMAZU)](https://pepy.tech/project/NaMAZU)
 [![license](https://img.shields.io/badge/License-GPL--3.0-informational)](https://github.com/NMZ0429/NaMAZU/blob/main/LICENSE)
 ![onnx](https://img.shields.io/badge/ONNX-1.10-005CED.svg?logo=ONNX&style=popout)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=NMZ0429_BiWAKO&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=NMZ0429_BiWAKO)
 
 * * *
 
