@@ -124,10 +124,6 @@ class FerPlus(BaseInference):
 
     def resize_and_gray(self, img_to_preprocess):
         """Resize input images and convert them to grayscale."""
-        """if img_to_preprocess.shape == (64, 64):
-            img_to_preprocess.resize((1, 1, 64, 64))
-            return img_to_preprocess"""
-
         grayscale = self.rgb2gray(img_to_preprocess)
         processed_img = self.resize_img(grayscale)
         return processed_img.astype(np.float32)
