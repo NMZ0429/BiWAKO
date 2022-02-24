@@ -55,7 +55,8 @@ def download_weight(file_url: str, save_path: Union[str, Path] = "") -> str:
 
 
 def maybe_download_weight(url_dict: Dict[str, str], key: str) -> str:
-    """If "key.onnx" is in the current directory, return the path to the file. Otherwise, try to download the file from url_dict[key] and return the path to the saved file.
+    """If "key.onnx" is in the current directory, return the path to the file.
+        Otherwise, try to download the file from url_dict[key] and return the path to the saved file.
 
     Args:
         url_dict (Dict[str, str]): dictionary of url to onnx file
