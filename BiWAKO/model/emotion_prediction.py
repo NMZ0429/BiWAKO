@@ -28,7 +28,8 @@ class FerPlus(BaseInference):
         """Initialize the model.
 
         Args:
-            model (str): The name of the model. Also accept the path to the onnx file. If not found, the model will be downloaded. Currently only support "ferplus8".
+            model (str): The name of the model. Also accept the path to the onnx file.
+                If not found, the model will be downloaded. Currently only support "ferplus8".
         """
         self.model_path = maybe_download_weight(WEIGHT_PATH, model)
         self.session = InferenceSession(self.model_path)
