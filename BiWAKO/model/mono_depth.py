@@ -1,5 +1,3 @@
-from typing import Union
-
 import cv2
 import numpy as np
 import onnxruntime as rt
@@ -74,9 +72,7 @@ class MiDAS(BaseInference):
         output = self.session.run([self.output_name], {self.input_name: img})[0]
         return output
 
-    def render(
-        self, prediction: np.ndarray, query: Union[str, np.ndarray]
-    ) -> np.ndarray:
+    def render(self, prediction: np.ndarray, query: Image) -> np.ndarray:
         """Return the resized depth map in cv2 foramt.
 
         Args:
@@ -86,10 +82,7 @@ class MiDAS(BaseInference):
         Returns:
             np.ndarray: Resized depthmap
         """
-        if isinstance(query, np.ndarray):
-            orig_img_size = (query.shape[1], query.shape[0])
-        else:
-            orig_img_size = self._read_image(query).shape[:2][::-1]
+        orig_img_size = self._read_image(query).shape[:2][::-1]
 
         prediction = self.normalize_depth(prediction).transpose((1, 2, 0))
         prediction = cv2.resize(
