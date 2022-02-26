@@ -43,7 +43,8 @@ class MiDAS(BaseInference):
         """Initialize model.
 
         Args:
-            model (str, optional): Model name or path to the downloaded onnx file. Defaults to "mono_depth_small". Onnx file is downloaded automatically.
+            model (str, optional): Model name or path to the downloaded onnx file. Defaults to "mono_depth_small".
+                Onnx file is downloaded automatically.
             show_exp (bool, optional): True to display expected input size. Defaults to False.
 
         Examples:
