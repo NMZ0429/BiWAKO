@@ -29,7 +29,9 @@ class FastSCNN(BaseInference):
         """Initialize FastSCNN model.
 
         Args:
-            model (str, optional): Choice of model. Accept model name or path to the downloaded onnx file. If onnx file has not been downloaded, it will be downloaded automatically. Currently avaiable models are `[fast_scnn384, fast_scnn7681344]`. Defaults to "fast_scnn384".
+            model (str, optional): Choice of model. Accept model name or path to the downloaded onnx file. If onnx file has not been downloaded,
+                                    it will be downloaded automatically. Currently avaiable models are `[fast_scnn384, fast_scnn7681344]`.
+                                    Defaults to "fast_scnn384".
         """
         self.model_path = maybe_download_weight(WEIGHT_PATH, model)
         self.model = InferenceSession(self.model_path)
@@ -104,6 +106,6 @@ class FastSCNN(BaseInference):
         """
         image = cv.resize(image, self.input_shape)
         image = cv.cvtColor(image, cv.COLOR_BGR2RGB) / 255.0
-        image = (image - self.mean) / self.std
+        image = (image - self.mean) / self.std  # type: ignore
         image = np.transpose(image, (2, 0, 1)).astype(np.float32)
         return np.expand_dims(image, axis=0)

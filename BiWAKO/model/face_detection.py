@@ -1,5 +1,5 @@
 from itertools import product
-from typing import List, Tuple
+from typing import List, Tuple, Optional
 
 import cv2 as cv
 import numpy as np
@@ -30,7 +30,7 @@ class YuNet(BaseInference):
     def __init__(
         self,
         model: str = "yunet_120_160",
-        input_shape: Tuple[int, int] = None,
+        input_shape: Optional[Tuple[int, int]] = None,
         conf_th: float = 0.6,
         nms_th: float = 0.3,
         topk: int = 5000,

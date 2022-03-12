@@ -34,7 +34,8 @@ class SUIMNet(BaseInference):
         """Initialize the SUIMNet model.
 
         Args:
-            model (str, optional): Choice of the model or path to the downloaded onnx file. If the model hasn't been downloaded, it is automatically downloaded to this path. Defaults to "suim_rsb_72128".
+            model (str, optional): Choice of the model or path to the downloaded onnx file. If the model hasn't been downloaded,
+                                    it is automatically downloaded to this path. Defaults to "suim_rsb_72128".
             num_classes (int, optional): Number of classes to segmentate. Defaults to 5.
         """
         self.model_path = maybe_download_weight(WEIGHT_PATH, model)

@@ -27,8 +27,10 @@ class MODNet(BaseInference):
         """Initialize MODNet.
 
         Args:
-            model (str, optional): Choice of model or path to the onnx file. Defaults to "modnet_256". If chosen model has not been downloaded, it will be downloaded automatically.
-            score_th (float, optional): Optional threshold for mask used in self.render(). Any pixels in the mask with confidence score lower than this value will be set to 0. Defaults to 0.5.
+            model (str, optional): Choice of model or path to the onnx file. Defaults to "modnet_256". If chosen model has not been downloaded,
+                                    it will be downloaded automatically.
+            score_th (float, optional): Optional threshold for mask used in self.render(). Any pixels in the mask with confidence score lower than
+                                        this value will be set to 0. Defaults to 0.5.
         """
         model_path = maybe_download_weight(WEIGHT_PATH, model)
         self.model = InferenceSession(model_path)

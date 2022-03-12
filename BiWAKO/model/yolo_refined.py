@@ -37,14 +37,16 @@ class YOLO2(BaseInference):
         session (onnxruntime.InferenceSession): The session of the onnx model.
         input_name (str): The name of the input node.
         coco_label (List[str]): The coco mapping of the labels.
-        colors (Colors): Color palette written by Ultralytics at https://github.com/ultralytics/yolov5/blob/a3d5f1d3e36d8e023806da0f0c744eef02591c9b/utils/plots.py
+        colors (Colors): Color palette written by Ultralytics at
+                            https://github.com/ultralytics/yolov5/blob/a3d5f1d3e36d8e023806da0f0c744eef02591c9b/utils/plots.py
     """
 
     def __init__(self, model: str = "yolo_nano_simp") -> None:
         """Initialize YOLO2.
 
         Arguments:
-            model (str, optional): Choice of the model. Also accept the path to the downloaded onnx file. If the model has not been downloaded yet, the file is downloaded automatically. Defaults to "yolo_nano_simp".
+            model (str, optional): Choice of the model. Also accept the path to the downloaded onnx file. If the model has not been downloaded yet,
+                                    the file is downloaded automatically. Defaults to "yolo_nano_simp".
 
         Example:
             >>> model = YOLO2("yolo_nano_simp")
