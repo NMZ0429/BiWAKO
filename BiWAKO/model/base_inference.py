@@ -23,7 +23,7 @@ class BaseInference(ABC):
     def _preprocess(self, image: np.ndarray) -> np.ndarray:
         pass
 
-    def _read_image(self, image=Image) -> np.ndarray:
+    def _read_image(self, image: Image) -> np.ndarray:
         """Return cv2 image object if given path. Otherwise return numpy array.
 
         Args:

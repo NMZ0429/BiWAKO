@@ -1,15 +1,13 @@
-import sys
 from argparse import ArgumentParser
 from typing import List
 
 import httpx
 import streamlit as st
-from zmq import TYPE
 
 st.markdown(
     """
     <style>
-    footer {visibility: hidden;}    
+    footer {visibility: hidden;}
     """,
     unsafe_allow_html=True,
 )
@@ -51,7 +49,7 @@ image_files = st.file_uploader(
     "Choose an image file", type=["jpg", "png"], accept_multiple_files=True
 )
 
-if len(image_files) > 0 and st.button("Request prediction"):
+if image_files and len(image_files) > 0 and st.button("Request prediction"):
     files = []
     for im in image_files:
         st.image(im, use_column_width=True, channels="BGR")
@@ -65,7 +63,7 @@ if len(image_files) > 0 and st.button("Request prediction"):
     )
     st.success(r.json())
 
-if len(image_files) > 0 and st.button("Request Result"):
+if image_files and len(image_files) > 0 and st.button("Request Result"):
     r = httpx.get(f"{BACKEND_HOST}/result")
     r = r.json()
     st.write(r)

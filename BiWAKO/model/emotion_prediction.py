@@ -28,7 +28,8 @@ class FerPlus(BaseInference):
         """Initialize the model.
 
         Args:
-            model (str): The name of the model. Also accept the path to the onnx file. If not found, the model will be downloaded. Currently only support "ferplus8".
+            model (str): The name of the model. Also accept the path to the onnx file.
+                If not found, the model will be downloaded. Currently only support "ferplus8".
         """
         self.model_path = maybe_download_weight(WEIGHT_PATH, model)
         self.session = InferenceSession(self.model_path)
@@ -124,10 +125,6 @@ class FerPlus(BaseInference):
 
     def resize_and_gray(self, img_to_preprocess):
         """Resize input images and convert them to grayscale."""
-        """if img_to_preprocess.shape == (64, 64):
-            img_to_preprocess.resize((1, 1, 64, 64))
-            return img_to_preprocess"""
-
         grayscale = self.rgb2gray(img_to_preprocess)
         processed_img = self.resize_img(grayscale)
         return processed_img.astype(np.float32)
