@@ -2,13 +2,38 @@ import os
 from typing import Union, Dict, List, Tuple, Optional
 import requests
 from tqdm import tqdm
+from rich.progress import Progress
 from pathlib import Path
 import numpy as np
 
 Image = Union[str, np.ndarray]
 
 
-def _download_file(url: str, filename: str) -> str:
+def _download_file(url: str, filename: str, title: str = "") -> str:
+    """Download a file from url to filename and return the path to the saved file.
+    This is the same as _tqdm_download_file but with rich progress bar.
+
+    Args:
+        url (str): url to download file
+        filename (str): filename to save the file
+
+    Returns:
+        str: path to the saved file
+    """
+    chunkSize = 1024
+    r = requests.get(url, stream=True)
+    with open(filename, "wb") as f:
+        content_size = int(r.headers["Content-Length"])
+        with Progress() as pbar:
+            dl = pbar.add_task(title, total=content_size)
+            for chunk in r.iter_content(chunk_size=chunkSize):
+                if chunk:  # filter out keep-alive new chunks
+                    pbar.update(dl, advance=len(chunk))
+                    f.write(chunk)
+    return filename
+
+
+def _tqdm_download_file(url: str, filename: str) -> str:
     """Download a file from url to filename.
 
     Args:
