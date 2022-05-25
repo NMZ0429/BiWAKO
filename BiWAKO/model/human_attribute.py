@@ -45,7 +45,7 @@ class HumanParsing(BaseInference):
         """
         model_path = maybe_download_weight(WEIGHT_PATH, model)
         self.conf_thresh = conf_thresh
-        self.model = InferenceSession(model_path)
+        self.model = InferenceSession(model_path, providers=["CPUExecutionProvider"])
         self.input_name = self.model.get_inputs()[0].name
         self.output_name = self.model.get_outputs()[0].name
         self.input_shape = self.model.get_inputs()[0].shape

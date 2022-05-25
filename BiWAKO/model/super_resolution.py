@@ -31,7 +31,9 @@ class RealESRGAN(BaseInference):
                                     Currently supports ["super_resolution4864", "super_resolution6464"].
         """
         self.model_path = maybe_download_weight(WEIGHT_PATH, model)
-        self.session = rt.InferenceSession(self.model_path)
+        self.session = rt.InferenceSession(
+            self.model_path, providers=["CPUExecutionProvider"]
+        )
         _, _, self.w, self.h = self.session.get_inputs()[0].shape
         self.input_name = self.session.get_inputs()[0].name
         self.output_name = self.session.get_outputs()[0].name

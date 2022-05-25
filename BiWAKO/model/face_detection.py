@@ -46,8 +46,10 @@ class YuNet(BaseInference):
             topk (int, optional): Number of faces to detect. Defaults to 5000.
             keep_topk (int, optional): Number of predictions to save. Defaults to 750.
         """
-        model_path = maybe_download_weight(WEIGHT_PATH, model)
-        self.model = InferenceSession(model_path)
+        self.model_path = maybe_download_weight(WEIGHT_PATH, model)
+        self.model = InferenceSession(
+            self.model_path, providers=["CPUExecutionProvider"]
+        )
         self.input_name = self.model.get_inputs()[0].name
         self.output_names = [self.model.get_outputs()[i].name for i in range(3)]
 

@@ -34,7 +34,9 @@ class FastSCNN(BaseInference):
                                     Defaults to "fast_scnn384".
         """
         self.model_path = maybe_download_weight(WEIGHT_PATH, model)
-        self.model = InferenceSession(self.model_path)
+        self.model = InferenceSession(
+            self.model_path, providers=["CPUExecutionProvider"]
+        )
         self.input_shape = (384, 384) if "384" in model else (1344, 768)
         self.input_name = self.model.get_inputs()[0].name
         self.output_name = self.model.get_outputs()[0].name

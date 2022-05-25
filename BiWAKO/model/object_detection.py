@@ -46,7 +46,9 @@ class YOLO(BaseInference):
             100%|██████████| 7.57M/7.57M [00:01<00:00, 6.89MB/s]
         """
         self.model_path = maybe_download_weight(WEIGHT_PATH, model)
-        self.session = rt.InferenceSession(self.model_path)
+        self.session = rt.InferenceSession(
+            self.model_path, providers=["CPUExecutionProvider"]
+        )
         self.input_name = self.session.get_inputs()[0].name
         self.output_name = self.session.get_outputs()[0].name
         self.input_shape = (1280, 1280) if ("yolo_extreme" in model) else (640, 640)

@@ -30,7 +30,9 @@ class AnimeGAN(BaseInference):
             model (str, optional): Either path to the downloaded model or name of the model to trigger automatic download. Defaults to "animeGAN512".
         """
         self.model_path = maybe_download_weight(WEIGHT_PATH, model)
-        self.model = InferenceSession(self.model_path)
+        self.model = InferenceSession(
+            self.model_path, providers=["CPUExecutionProvider"]
+        )
         self.input_name = self.model.get_inputs()[0].name
         self.ouput_name = self.model.get_outputs()[0].name
         self.input_size = 512

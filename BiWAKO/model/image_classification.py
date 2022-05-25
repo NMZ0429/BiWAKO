@@ -44,7 +44,9 @@ class ResNet(BaseInference):
         self.mean = np.array([0.485, 0.456, 0.406]).reshape((1, 1, 3))
         self.var = np.array([0.229, 0.224, 0.225]).reshape((1, 1, 3))
         self.model_path = maybe_download_weight(WEIGHT_PATH, model)
-        self.model = InferenceSession(self.model_path)
+        self.model = InferenceSession(
+            self.model_path, providers=["CPUExecutionProvider"]
+        )
         self.input_name = self.model.get_inputs()[0].name
         self.input_shape = self.model.get_inputs()[0].shape
         self.output_name = self.model.get_outputs()[0].name

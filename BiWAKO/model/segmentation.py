@@ -37,9 +37,9 @@ class U2Net(BaseInference):
             model (str, optional): Model name or downloaded onnx file. Accept one of `["basic", "mobile", "human_seg", "portrait"]`.
                                     If model has not been downloaded, it will be downloaded automatically.
         """
-        model_path = maybe_download_weight(WEIGHT_PATH, model)
+        self.model_path = maybe_download_weight(WEIGHT_PATH, model)
 
-        self.IS = InferenceSession(model_path)
+        self.IS = InferenceSession(self.model_path, providers=["CPUExecutionProvider"])
         self.input_name = self.IS.get_inputs()[0].name
         self.output_name = self.IS.get_outputs()[0].name
         self.input_size = 320
