@@ -23,10 +23,13 @@ class HINet(BaseInference):
         """Initialize HINet.
 
         Args:
-            model (str, optional): Choise of model. Weight file is automatically downloaded to the current directory at the first time. Defaults to "denoise_320_480.onnx".
+            model (str, optional): Choise of model. Weight file is automatically downloaded to the current directory
+            at the first time. Defaults to "denoise_320_480.onnx".
         """
-        model_path = maybe_download_weight(WEIGHT_PATH, model)
-        self.model = InferenceSession(model_path)
+        self.model_path = maybe_download_weight(WEIGHT_PATH, model)
+        self.model = InferenceSession(
+            self.model_path, providers=["CPUExecutionProvider"]
+        )
         self.input_name = self.model.get_inputs()[0].name
         self.input_shape = (480, 320)
 
@@ -48,7 +51,7 @@ class HINet(BaseInference):
     def render(
         self,
         prediction: np.ndarray,
-        image: Image = None,
+        image: Optional[Image] = None,
         output_type: Literal[0, 1] = 0,
         output_shape: Optional[Tuple[int, int]] = None,
     ) -> np.ndarray:
