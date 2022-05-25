@@ -52,7 +52,9 @@ class YOLO2(BaseInference):
             >>> model = YOLO2("yolo_nano_simp")
         """
         self.model_path = maybe_download_weight(url_dict=WEIGHT_PATH, key=model)
-        self.session = rt.InferenceSession(self.model_path)
+        self.session = rt.InferenceSession(
+            self.model_path, providers=["CPUExecutionProvider"]
+        )
         self.input_name = self.session.get_inputs()[0].name
         self.coco_label = [
             "person",

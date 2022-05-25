@@ -32,7 +32,9 @@ class FerPlus(BaseInference):
                 If not found, the model will be downloaded. Currently only support "ferplus8".
         """
         self.model_path = maybe_download_weight(WEIGHT_PATH, model)
-        self.session = InferenceSession(self.model_path)
+        self.session = InferenceSession(
+            self.model_path, providers=["CPUExecutionProvider"]
+        )
         self.input_name = self.session.get_inputs()[0].name
         self.output_name = self.session.get_outputs()[0].name
         self.emotion_table = np.array(

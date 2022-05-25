@@ -39,7 +39,9 @@ class SUIMNet(BaseInference):
             num_classes (int, optional): Number of classes to segmentate. Defaults to 5.
         """
         self.model_path = maybe_download_weight(WEIGHT_PATH, model)
-        self.session = rt.InferenceSession(self.model_path)
+        self.session = rt.InferenceSession(
+            self.model_path, providers=["CPUExecutionProvider"]
+        )
         self.h, self.w = self.session.get_inputs()[0].shape[2:4]
         self.input_name = self.session.get_inputs()[0].name
         self.output_name = self.session.get_outputs()[0].name

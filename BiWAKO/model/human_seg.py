@@ -33,7 +33,7 @@ class MODNet(BaseInference):
                                         this value will be set to 0. Defaults to 0.5.
         """
         model_path = maybe_download_weight(WEIGHT_PATH, model)
-        self.model = InferenceSession(model_path)
+        self.model = InferenceSession(model_path, providers=["CPUExecutionProvider"])
         self.input_name = self.model.get_inputs()[0].name
         self.output_name = self.model.get_outputs()[0].name
         self.input_shape = self.model.get_inputs()[0].shape[2:]
