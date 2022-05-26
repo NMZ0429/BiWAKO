@@ -12,8 +12,6 @@ WEIGHT_PATH = {
 
 __all__ = ["MiDAS"]
 
-# TODO: Avoid downloading exsitng model
-
 
 class MiDAS(BaseInference):
     """MonoDepth prediction model.
