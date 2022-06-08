@@ -11,6 +11,7 @@ from .human_seg import MODNet
 from .yolo_refined import YOLO2
 from .semantic_segmentation import FastSCNN
 from .suim_net import SUIMNet
+from .instance_seg import SparseInst
 
 
 # Exclude old yolo implementation if pytorch is not installed
@@ -33,6 +34,7 @@ try:
         "YOLO2",
         "FastSCNN",
         "SUIMNet",
+        "SparseInst",
     ]
 
 except ModuleNotFoundError:
@@ -50,4 +52,5 @@ except ModuleNotFoundError:
         "YOLO2",
         "FastSCNN",
         "SUIMNet",
+        "SparseInst",
     ]

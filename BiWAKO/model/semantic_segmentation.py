@@ -107,7 +107,8 @@ class FastSCNN(BaseInference):
             np.ndarray: Preprocessed image.
         """
         image = cv.resize(image, self.input_shape)
-        image = cv.cvtColor(image, cv.COLOR_BGR2RGB) / 255.0
+        image = cv.cvtColor(image, cv.COLOR_BGR2RGB)
+        image /= 255.0  # type: ignore
         image = (image - self.mean) / self.std  # type: ignore
         image = np.transpose(image, (2, 0, 1)).astype(np.float32)
         return np.expand_dims(image, axis=0)
