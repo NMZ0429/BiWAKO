@@ -90,7 +90,7 @@ pie
 
 
 def run_query(query: str, token: str):
-    headers = {"Authorization": "token {token}"}
+    headers = {"Authorization": f"token {token}"}
     request = requests.post(
         "https://api.github.com/graphql", json={"query": query}, headers=headers
     )
