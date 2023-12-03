@@ -76,7 +76,7 @@ class PrettyPrinter:
             content += f"""
 ```mermaid
 pie
-    title Incident Progess
+    title Incident Progress
     "Completed" : {len(list(filter(lambda x: x.status == "Done", self.issues)))}
     "In Progress" : {len(list(filter(lambda x: x.status == "In Progress", self.issues)))}
     "To Do" : {len(list(filter(lambda x: x.status == "Todo", self.issues)))}
