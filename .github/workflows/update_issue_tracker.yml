@@ -1,0 +1,27 @@
+name: Update Issue Tracker
+
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  count_issues:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: pip install requests PyGithub
+
+    - name: Run script
+      run: python count_issues.py
+      env:
+        ISSUE_TRACKER_TOKEN: ${{ secrets.ISSUE_TRACKER_TOKEN }}
